@@ -127,3 +127,66 @@ footer.site {
   font-size: .85rem;
   padding: 20px 0;
 }
+
+/* ===== Мобильная версия ===== */
+header.site { position: sticky; top: 0; z-index: 20; }
+
+/* Нижняя панель с результатом (только на телефоне) */
+.result-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: none; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--accent); color: #fff;
+  box-shadow: 0 -4px 16px rgba(0,0,0,.15);
+  border: 0; width: 100%; font: inherit; text-align: left; cursor: pointer;
+}
+.result-bar .rb-label { font-size: .8rem; opacity: .85; display: block; }
+.result-bar .rb-value { font-size: 1.25rem; font-weight: 700; }
+.result-bar .rb-go { font-size: .85rem; white-space: nowrap; opacity: .9; }
+
+/* Поиск по калькуляторам на главной */
+.search { margin: 16px 0 4px; }
+.search input { font-size: 1rem; padding: 12px 14px; }
+.nothing { color: var(--muted); display: none; }
+
+.install-btn {
+  display: none; margin-left: auto; border: 1px solid var(--accent); color: var(--accent);
+  background: #fff; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: .85rem; cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  header.site .wrap { flex-wrap: nowrap; gap: 12px; padding-top: 10px; padding-bottom: 10px; }
+  .logo { font-size: 1.1rem; }
+  nav.main { gap: 10px; font-size: .85rem; flex-wrap: nowrap; }
+  nav.main a { padding: 6px 0; white-space: nowrap; }
+  header.site .nav-long { display: none; }
+
+  main.wrap { padding-top: 16px; padding-bottom: 90px; }
+  h1 { font-size: 1.35rem; }
+  h2 { font-size: 1.1rem; margin-top: 22px; }
+  .lead { font-size: .95rem; }
+
+  .card { padding: 14px; margin: 12px 0; }
+  .grid { gap: 10px; }
+  input, select { padding: 12px; font-size: 16px; } /* 16px — iOS не увеличивает страницу при вводе */
+  .result { padding: 14px 16px; }
+  .result .big { font-size: 1.45rem; }
+
+  .ad-slot { margin: 14px 0; min-height: 60px; }
+  .ad-placeholder { min-height: 60px; }
+
+  /* Компактный список калькуляторов */
+  .tiles { grid-template-columns: 1fr; gap: 8px; }
+  .tile { display: grid; grid-template-columns: 40px 1fr; align-items: center; column-gap: 10px; padding: 12px 14px; }
+  .tile:hover { transform: none; }
+  .tile .ico { font-size: 1.5rem; grid-row: span 2; text-align: center; }
+  .tile b { margin: 0; }
+  .tile small { font-size: .8rem; }
+
+  #sched { font-size: .78rem !important; }
+  #sched td, #sched th { padding: 4px 6px 4px 0; white-space: nowrap; }
+
+  .result-bar.show { display: flex; }
+  .install-btn.show { display: inline-block; }
+  footer.site { padding-bottom: 80px; }
+}

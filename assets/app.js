@@ -107,3 +107,105 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 });
+
+/* ===== Мобильная версия ===== */
+const isPhone = () => window.matchMedia("(max-width: 640px)").matches;
+
+/* Пробелы между разрядами в полях: 1500000 → 1 500 000 */
+function groupDigits(v) {
+  const m = String(v).replace(/\s/g, "").match(/^(\d+)([.,]\d*)?$/);
+  if (!m || m[1].length < 4) return v;
+  return m[1].replace(/\B(?=(\d{3})+(?!\d))/g, " ") + (m[2] || "");
+}
+function setupNumberInputs() {
+  document.querySelectorAll('input[inputmode="decimal"], input[inputmode="numeric"]').forEach((el) => {
+    el.value = groupDigits(el.value);
+    el.addEventListener("blur", () => { el.value = groupDigits(el.value); });
+    el.addEventListener("focus", () => { el.select(); });
+  });
+}
+
+/* Нижняя панель с главным результатом, пока сам блок результата не виден */
+function setupResultBar() {
+  const out = document.getElementById("out");
+  if (!out) return;
+  const bar = document.createElement("button");
+  bar.type = "button";
+  bar.className = "result-bar";
+  bar.innerHTML = '<span><span class="rb-label"></span><span class="rb-value"></span></span><span class="rb-go">Подробнее ↓</span>';
+  document.body.appendChild(bar);
+  bar.addEventListener("click", () => out.scrollIntoView({ behavior: "smooth", block: "center" }));
+
+  let outVisible = false;
+  const refresh = () => {
+    const big = out.querySelector(".big");
+    if (big) {
+      const label = (out.firstChild && out.firstChild.nodeType === 3 ? out.firstChild.textContent : "").trim().replace(/:$/, "");
+      bar.querySelector(".rb-label").textContent = label;
+      bar.querySelector(".rb-value").textContent = big.textContent;
+    }
+    bar.classList.toggle("show", !!big && !outVisible && isPhone());
+  };
+  new MutationObserver(refresh).observe(out, { childList: true, subtree: true, characterData: true });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((e) => { outVisible = e[0].isIntersecting; refresh(); }).observe(out);
+  }
+  window.addEventListener("resize", refresh);
+  refresh();
+}
+
+/* Поиск калькулятора на главной */
+function setupSearch() {
+  const input = document.getElementById("search");
+  if (!input) return;
+  const tiles = [...document.querySelectorAll(".tile")];
+  const norm = (s) => s.toLowerCase().replace(/ё/g, "е");
+  input.addEventListener("input", () => {
+    const q = norm(input.value.trim());
+    let shown = 0;
+    tiles.forEach((t) => {
+      const hit = !q || norm(t.textContent).includes(q);
+      t.style.display = hit ? "" : "none";
+      if (hit) shown++;
+    });
+    document.querySelectorAll(".tiles").forEach((g) => {
+      const any = [...g.children].some((c) => c.style.display !== "none");
+      g.style.display = any ? "" : "none";
+      if (g.previousElementSibling && g.previousElementSibling.tagName === "H2") g.previousElementSibling.style.display = any ? "" : "none";
+    });
+    document.getElementById("nothing").style.display = shown ? "none" : "block";
+  });
+}
+
+/* Кнопка «Установить» (Android/Chrome). На iPhone — через «Поделиться → На экран „Домой“». */
+let installEvent = null;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  installEvent = e;
+  const btn = document.querySelector(".install-btn");
+  if (btn) btn.classList.add("show");
+});
+function setupInstallButton() {
+  const wrap = document.querySelector("header.site .wrap");
+  if (!wrap) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "install-btn";
+  btn.textContent = "Установить";
+  btn.addEventListener("click", async () => {
+    if (!installEvent) return;
+    installEvent.prompt();
+    await installEvent.userChoice;
+    installEvent = null;
+    btn.classList.remove("show");
+  });
+  wrap.appendChild(btn);
+  if (installEvent) btn.classList.add("show");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupNumberInputs();
+  setupResultBar();
+  setupSearch();
+  setupInstallButton();
+});
