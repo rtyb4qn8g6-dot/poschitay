@@ -43,7 +43,7 @@ const CONFIG = {
   },
   // Донаты. Заполните то, что подключите.
   donate: {
-    yoomoney: "",    // номер кошелька ЮMoney, например "4100118000000000"
+    yoomoney: "4100116254637048",    // номер кошелька ЮMoney, например "4100118000000000"
     cloudtips: "https://pay.cloudtips.ru/p/674bc79f",   // ссылка CloudTips, например "https://pay.cloudtips.ru/p/abcd1234"
     boosty: "",      // ссылка на Boosty, например "https://boosty.to/poschitay"
   },
@@ -268,6 +268,7 @@ function setupDonate() {
       <input type="hidden" name="quickpay-form" value="button">
       <input type="hidden" name="label" value="donate-poschitay24">
       <input type="hidden" name="paymentType" value="AC">
+      <input type="hidden" name="successURL" value="https://poschitay24.ru/donate.html">
       <div class="chips">
         ${[100, 300, 500, 1000].map((v, i) => `<label class="chip"><input type="radio" name="sum" value="${v}" ${i === 1 ? "checked" : ""}> ${v} ₽</label>`).join("")}
       </div>
