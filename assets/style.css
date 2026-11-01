@@ -430,3 +430,15 @@ footer.site a:hover { color: var(--text); }
 .print-footer { display: none; margin-top: 16px; font-size: .85rem; color: #555; }
 
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+
+/* Главная на телефоне: карточки во всю ширину, высота по содержимому */
+@media (max-width: 640px) {
+  .bento { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 12px; }
+  .b-life, .b-mort, .b-sm, .b-sm:last-child { grid-column: 1; grid-row: auto; }
+  .b-life, .b-mort { min-height: 300px; }
+  .b-sm { min-height: 0; }
+  .b-sm .big-num { margin-top: 14px; }
+  .bcard h3 { font-size: 1.15rem; }
+  .kbd-search { padding: 0; width: 40px; height: 38px; justify-content: center; }
+  .kbd-search kbd { display: none; }
+}
