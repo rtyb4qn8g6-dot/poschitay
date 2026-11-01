@@ -75,6 +75,8 @@
       <select id="what"><option value="walls">Только стены</option><option value="ceil">Только потолок</option><option value="both">Стены и потолок</option></select></div>
     <div><label for="rate">Расход, л на м² за слой</label><input id="rate" inputmode="decimal" value="0.12"></div>
     <div><label for="layers">Количество слоёв</label><input id="layers" inputmode="numeric" value="2"></div>
+    <div><label for="method">Способ нанесения</label>
+      <select id="method"><option value="1">Валик или кисть</option><option value="1.25">Краскопульт (HVLP, воздушный)</option><option value="1.35">Безвоздушный (airless) окрасочный аппарат</option></select></div>
     <div><label for="can">Объём банки, л</label>
       <select id="can"><option value="0.9">0,9 л</option><option value="2.5">2,5 л</option><option value="2.7">2,7 л</option><option value="9" selected>9 л</option><option value="10">10 л</option></select></div>
   </div>
@@ -88,7 +90,7 @@
 <p>Площадь стен — периметр × высота минус окна и двери, площадь потолка — длина × ширина. Расход краски указан на банке:
 обычно 0,1–0,15 л на м² за один слой (или «1 литр на 7–10 м²»). Стены почти всегда красят в два слоя,
 по свежей шпаклёвке сначала наносят грунтовку.</p>
-<p>Добавляем 10% запаса на впитывание и подкраску.</p>
+<p>Добавляем 10% запаса на впитывание и подкраску. При нанесении краскопультом часть краски уходит в «туман» — расход больше на 20–30%, безвоздушным аппаратом — на 30–40%, но работа идёт в несколько раз быстрее, а слой получается ровнее. Для покраски аппаратом краску часто разбавляют — смотрите рекомендации производителя.</p>
 
 <p class="help-line">💬 Нашли ошибку или нужен другой расчёт? <a href="obratnaya-svyaz">Напишите нам</a> · ☕ <a href="podderzhat">Поддержать проект</a></p>
 
@@ -131,7 +133,7 @@ autoCalc("f", () => {
   const area = what === "walls" ? walls : what === "ceil" ? ceil : walls + ceil;
   const out = document.getElementById("out");
   if (!area || !num("rate") || !num("layers")) { out.innerHTML = "Заполните размеры и расход краски."; return; }
-  const liters = area * num("rate") * num("layers") * 1.1;
+  const liters = area * num("rate") * num("layers") * 1.1 * (num("method") || 1);
   const can = num("can");
   out.innerHTML = `Нужно краски: <div class="big">${fmt(liters, 1)} л</div>
     <ul>
