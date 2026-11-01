@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Жизнь в цифрах — сколько раз билось ваше сердце и когда ваш 10 000-й день</title>
+<meta name="description" content="Введите дату рождения и узнайте удивительное: сколько раз билось сердце, сколько км вы пролетели вокруг Солнца, возраст на Марсе, дата вашего 10 000-го дня и миллиардной секунды.">
+<link rel="canonical" href="https://poschitay24.ru/life.html">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2a6df4">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113981008', 'ym');
+
+    ym(113981008, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html">По<span>считай</span></a>
+  <nav class="main">
+    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
+    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+  </nav>
+</div></header>
+<main class="wrap">
+<h1>🧬 Жизнь в цифрах</h1>
+<p class="lead">Введите дату рождения — и посмотрите на свою жизнь так, как никогда раньше.</p>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<form class="card" id="f">
+  <div class="grid">
+    <div><label for="bd">Дата рождения</label><input id="bd" type="date" value="1995-06-15"></div>
+    <div><label for="phone">Часов в телефоне в день (необязательно)</label><input id="phone" inputmode="decimal" value="4"></div>
+  </div>
+  <div class="result" id="out"></div>
+  <div id="facts"></div>
+</form>
+
+<div class="ad-slot" data-ad="result"></div>
+
+<h2>Откуда эти цифры</h2>
+<ul>
+  <li>Сердце взрослого в покое бьётся в среднем 60–80 раз в минуту, расчёт — по 70 ударов.</li>
+  <li>Человек делает около 16 вдохов в минуту и моргает около 15 раз в минуту, пока не спит.</li>
+  <li>Земля летит вокруг Солнца со скоростью около 29,8 км в секунду — и вы вместе с ней.</li>
+  <li>Год на Марсе длится 687 земных суток, на Юпитере — почти 12 земных лет.</li>
+  <li>Все значения ориентировочные и подсчитаны ради интереса, а не как медицинские данные.</li>
+</ul>
+
+<p class="help-line">💬 Есть идея удивительного расчёта? <a href="feedback.html">Напишите нам</a> · ☕ <a href="donate.html">Поддержать проект</a></p>
+
+<h2>Ещё удивительные расчёты</h2>
+<div class="tiles">
+  <a class="tile wow" href="true-price.html"><span class="ico">⏳</span><b>Настоящая цена покупки</b><small>Сколько часов жизни стоит покупка и во что превратится привычка</small></a>
+  <a class="tile wow" href="freedom.html"><span class="ico">🏝️</span><b>Когда можно не работать</b><small>Сколько накопить, чтобы жить на проценты, и в каком возрасте</small></a>
+  <a class="tile" href="index.html"><span class="ico">🧮</span><b>Все калькуляторы</b><small>Ремонт, стройка, налоги и деньги</small></a>
+</div>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+<footer class="site"><div class="wrap">
+  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
+  Сайт может содержать рекламу и партнёрские ссылки.<br>
+  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+</div></footer>
+<script src="assets/app.js"></script>
+<script>
+const plural = (n, a, b, c) => { n = Math.abs(Math.round(n * 10) / 10); if (!Number.isInteger(n)) return b; const k = n % 100, l = k % 10; return k > 10 && k < 20 ? c : l === 1 ? a : l >= 2 && l <= 4 ? b : c; };
+const big = (n) => n >= 1e12 ? fmt(n / 1e12, 1) + " трлн" : n >= 1e9 ? fmt(n / 1e9, 2) + " млрд" : n >= 1e6 ? fmt(n / 1e6, 1) + " млн" : fmt(n);
+const fact = (i, v, t) => `<div class="fact"><span class="fi">${i}</span><span class="fv">${v}</span><small>${t}</small></div>`;
+
+const DAY = 864e5;
+const date = (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
+autoCalc("f", () => {
+  const out = document.getElementById("out"), box = document.getElementById("facts");
+  const v = document.getElementById("bd").value;
+  if (!v) { out.innerHTML = "Укажите дату рождения."; box.innerHTML = ""; return; }
+  const [y, m, d] = v.split("-").map(Number);
+  const born = new Date(y, m - 1, d), now = new Date();
+  const ms = now - born;
+  if (ms <= 0) { out.innerHTML = "Дата рождения должна быть в прошлом 🙂"; box.innerHTML = ""; return; }
+  const days = Math.floor(ms / DAY), min = ms / 6e4, sec = ms / 1e3, years = ms / (365.2425 * DAY);
+
+  // ближайшие «круглые» даты
+  const marks = [
+    [5000 * DAY, "5 000-й день жизни"], [10000 * DAY, "10 000-й день жизни"], [15000 * DAY, "15 000-й день жизни"],
+    [20000 * DAY, "20 000-й день жизни"], [25000 * DAY, "25 000-й день жизни"], [30000 * DAY, "30 000-й день жизни"],
+    [1e9 * 1e3, "миллиардная секунда жизни"], [2e9 * 1e3, "двухмиллиардная секунда жизни"],
+    [1e6 * 6e4 * 10, "10-миллионная минута жизни"], [500000 * 36e5, "500 000-й час жизни"],
+  ].map(([off, t]) => [new Date(born.getTime() + off), t]).filter(([dt]) => dt > now).sort((a, b) => a[0] - b[0]);
+  const next = marks[0];
+  const left = next ? Math.ceil((next[0] - now) / DAY) : 0;
+
+  const at80 = new Date(y + 80, m - 1, d);
+  const satLeft = Math.max(0, Math.floor((at80 - now) / (7 * DAY)));
+  const phone = num("phone");
+  const phoneYears = phone * Math.max(0, (at80 - now) / DAY) / 24 / 365.2425;
+
+  out.innerHTML = `Вы живёте уже: <div class="big">${fmt(days)} ${plural(days, "день", "дня", "дней")}</div>
+    <ul>${next ? `<li>🎉 Ваша <b>${next[1]}</b> — <b>${date(next[0])}</b>, через ${fmt(left)} ${plural(left, "день", "дня", "дней")}. Отметьте!</li>` : ""}</ul>`;
+
+  box.innerHTML = `<div class="facts">
+    ${fact("❤️", big(min * 70), "раз билось ваше сердце")}
+    ${fact("🌬️", big(min * 16), "вдохов вы сделали")}
+    ${fact("👁️", big(min * (2 / 3) * 15), "раз вы моргнули")}
+    ${fact("🌍", big(sec * 29.78) + " км", "вы пролетели вместе с Землёй вокруг Солнца")}
+    ${fact("😴", fmt(years / 3, 1) + " " + plural(years / 3, "год", "года", "лет"), "вы проспали")}
+    ${fact("🌕", fmt(Math.floor(days / 29.53)), "полнолуний случилось за вашу жизнь")}
+    ${fact("🔴", fmt(days / 686.98, 1) + " " + plural(days / 686.98, "год", "года", "лет"), "ваш возраст на Марсе")}
+    ${fact("🪐", fmt(days / 4332.59, 2) + " " + plural(days / 4332.59, "год", "года", "лет"), "ваш возраст на Юпитере")}
+    ${fact("☿️", fmt(days / 87.97, 1) + " " + plural(days / 87.97, "год", "года", "лет"), "ваш возраст на Меркурии")}
+    ${fact("⏱️", big(sec), "секунд вы прожили")}
+    ${fact("📅", fmt(satLeft), plural(satLeft, "суббота осталась", "субботы осталось", "суббот осталось") + " до 80 лет. Проведите их хорошо")}
+    ${phone ? fact("📱", fmt(phoneYears, 1) + " " + plural(phoneYears, "год", "года", "лет"), "уйдёт в телефон до 80 лет при " + fmt(phone, 1) + " ч в день") : ""}
+  </div>`;
+});
+</script>
+</body>
+</html>

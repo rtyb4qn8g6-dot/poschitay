@@ -256,3 +256,16 @@ footer.site a { color: var(--muted); }
   .print-footer { display: block !important; }
 }
 .print-footer { display: none; margin-top: 16px; font-size: .85rem; color: #555; }
+
+/* ===== Удивительные расчёты ===== */
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+.fact { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.fact .fi { font-size: 1.4rem; }
+.fact .fv { font-size: 1.15rem; font-weight: 700; color: var(--accent); display: block; margin: 2px 0; }
+.fact small { color: var(--muted); }
+.chart { width: 100%; height: auto; margin-top: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
+.chart text { fill: var(--muted); font-size: 11px; }
+.tile.wow { border-color: var(--accent); background: linear-gradient(135deg, var(--card), var(--accent-soft)); }
+
+@media (max-width: 640px) { .fact { padding: 10px 12px; } .fact .fv { font-size: 1.05rem; } .fact small { font-size: .8rem; line-height: 1.3; display: block; } }
+@media (max-width: 640px) { .fact .fi { font-size: 1.15rem; } }

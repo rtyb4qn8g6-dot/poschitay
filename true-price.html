@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Настоящая цена покупки — сколько часов жизни стоит вещь</title>
+<meta name="description" content="Узнайте, сколько часов работы стоит покупка, во что за годы превращается ежедневная привычка вроде кофе и сколько было бы, если вкладывать эти деньги.">
+<link rel="canonical" href="https://poschitay24.ru/true-price.html">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2a6df4">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113981008', 'ym');
+
+    ym(113981008, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html">По<span>считай</span></a>
+  <nav class="main">
+    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
+    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+  </nav>
+</div></header>
+<main class="wrap">
+<h1>⏳ Настоящая цена покупки</h1>
+<p class="lead">Мы платим не деньгами, а часами своей жизни, которые потратили, чтобы их заработать. Посмотрите, сколько на самом деле стоит покупка или привычка.</p>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<form class="card" id="f">
+  <div class="grid">
+    <div style="grid-column:1/-1"><label for="mode">Что считаем</label>
+      <select id="mode"><option value="once">Разовая покупка (телефон, отпуск, машина)</option><option value="habit">Ежедневная привычка (кофе, сигареты, доставка)</option><option value="month">Ежемесячный платёж (подписки, абонемент)</option></select></div>
+    <div><label for="price" id="lp">Цена, ₽</label><input id="price" inputmode="decimal" value="120000"></div>
+    <div><label for="sal">Ваш доход на руки в месяц, ₽</label><input id="sal" inputmode="decimal" value="80000"></div>
+    <div><label for="hours">Рабочих часов в месяц</label><input id="hours" inputmode="decimal" value="168"></div>
+    <div><label for="yrs">Горизонт, лет</label><input id="yrs" inputmode="numeric" value="10"></div>
+    <div><label for="rate">Если вкладывать: доходность, % годовых</label><input id="rate" inputmode="decimal" value="12"></div>
+  </div>
+  <div class="result" id="out"></div>
+  <div id="facts"></div>
+</form>
+
+<div class="ad-slot" data-ad="result"></div>
+
+<h2>Зачем это знать</h2>
+<p>Цена в рублях мало что говорит. А «два с половиной рабочих дня» за кроссовки или «полтора года работы» за машину — говорят. Это не повод отказывать себе во всём, а способ тратить на то, что действительно важно.</p>
+<p>Расчёт вложений — по сложному проценту с ежемесячной капитализацией. Реальная доходность зависит от инструмента и инфляции.</p>
+
+<p class="help-line">💬 Есть идея удивительного расчёта? <a href="feedback.html">Напишите нам</a> · ☕ <a href="donate.html">Поддержать проект</a></p>
+
+<h2>Ещё удивительные расчёты</h2>
+<div class="tiles">
+  <a class="tile wow" href="life.html"><span class="ico">🧬</span><b>Жизнь в цифрах</b><small>Сколько раз билось сердце, возраст на Марсе, ваш 10 000-й день</small></a>
+  <a class="tile wow" href="freedom.html"><span class="ico">🏝️</span><b>Когда можно не работать</b><small>Сколько накопить, чтобы жить на проценты, и в каком возрасте</small></a>
+  <a class="tile" href="index.html"><span class="ico">🧮</span><b>Все калькуляторы</b><small>Ремонт, стройка, налоги и деньги</small></a>
+</div>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+<footer class="site"><div class="wrap">
+  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
+  Сайт может содержать рекламу и партнёрские ссылки.<br>
+  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+</div></footer>
+<script src="assets/app.js"></script>
+<script>
+const plural = (n, a, b, c) => { n = Math.abs(Math.round(n * 10) / 10); if (!Number.isInteger(n)) return b; const k = n % 100, l = k % 10; return k > 10 && k < 20 ? c : l === 1 ? a : l >= 2 && l <= 4 ? b : c; };
+const big = (n) => n >= 1e12 ? fmt(n / 1e12, 1) + " трлн" : n >= 1e9 ? fmt(n / 1e9, 2) + " млрд" : n >= 1e6 ? fmt(n / 1e6, 1) + " млн" : fmt(n);
+const fact = (i, v, t) => `<div class="fact"><span class="fi">${i}</span><span class="fv">${v}</span><small>${t}</small></div>`;
+
+const LP = { once: "Цена покупки, ₽", habit: "Сколько тратите в день, ₽", month: "Сколько платите в месяц, ₽" };
+function work(rub, perHour) {
+  const h = rub / perHour;
+  if (h < 1) return `${fmt(h * 60)} ${plural(h * 60, "минута", "минуты", "минут")} работы`;
+  if (h < 16) return `${fmt(h, 1)} ч работы`;
+  const d = h / 8;
+  if (d < 22) return `${fmt(d, 1)} рабочих ${plural(d, "дня", "дня", "дней")}`;
+  const m = h / 168;
+  if (m < 12) return `${fmt(m, 1)} ${plural(m, "месяц", "месяца", "месяцев")} работы`;
+  return `${fmt(m / 12, 1)} ${plural(m / 12, "год", "года", "лет")} работы`;
+}
+autoCalc("f", () => {
+  const mode = document.getElementById("mode").value;
+  document.getElementById("lp").textContent = LP[mode];
+  const price = num("price"), sal = num("sal"), hours = num("hours") || 168, yrs = num("yrs"), r = num("rate") / 1200;
+  const out = document.getElementById("out"), box = document.getElementById("facts");
+  if (!price || !sal) { out.innerHTML = "Укажите цену и доход."; box.innerHTML = ""; return; }
+  const perHour = sal / hours, n = Math.round(yrs * 12);
+  const fvLump = price * Math.pow(1 + r, n);
+  const monthly = mode === "habit" ? price * 30.44 : price;
+  const fvAnnuity = r ? monthly * (Math.pow(1 + r, n) - 1) / r : monthly * n;
+  if (mode === "once") {
+    out.innerHTML = `Настоящая цена: <div class="big">${work(price, perHour)}</div>
+      <ul><li>Ваш час работы стоит ${rub(perHour)}</li></ul>`;
+    box.innerHTML = `<div class="facts">
+      ${fact("⏳", fmt(price / perHour) + " ч", "жизни на работе ради этой покупки")}
+      ${fact("📈", rub(fvLump), "было бы через " + fmt(yrs) + " " + plural(yrs, "год", "года", "лет") + ", если вложить эти деньги под " + fmt(num("rate"), 1) + "%")}
+      ${fact("🗓️", fmt(price / sal * 100, 1) + "%", "вашего месячного дохода, или " + fmt(price / (sal * 12) * 100, 1) + "% годового")}
+    </div>`;
+  } else {
+    const perYear = monthly * 12, total = monthly * n;
+    out.innerHTML = `За ${fmt(yrs)} ${plural(yrs, "год", "года", "лет")} вы потратите: <div class="big">${rub(total)}</div>
+      <ul><li>Это ${work(total, perHour)}</li></ul>`;
+    box.innerHTML = `<div class="facts">
+      ${fact("📅", rub(perYear), "в год — это " + work(perYear, perHour))}
+      ${fact("💰", rub(fvAnnuity), "было бы, если вместо этого вкладывать под " + fmt(num("rate"), 1) + "% годовых")}
+      ${fact("🚀", rub(fvAnnuity - total), "из них — доход от вложений")}
+      ${fact("⏳", fmt(total / perHour) + " ч", "вашей жизни на работе ради этой привычки")}
+    </div>`;
+  }
+});
+</script>
+</body>
+</html>
