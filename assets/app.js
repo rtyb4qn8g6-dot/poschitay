@@ -37,7 +37,7 @@ const CONFIG = {
   },
   // Обратная связь. Заполните хотя бы одно поле — блоки на странице feedback.html появятся сами.
   contact: {
-    yandexForm: "",  // ссылка на Яндекс Форму, например "https://forms.yandex.ru/u/1234567890abcdef/"
+    yandexForm: "https://forms.yandex.ru/u/6ae732d3c45c0716765db93b/",  // ссылка на Яндекс Форму, например "https://forms.yandex.ru/u/1234567890abcdef/"
     email: "",       // почта для писем, например "hello@poschitay24.ru"
     telegram: "",    // ник в Telegram без @, например "poschitay24"
   },
@@ -237,8 +237,14 @@ function setupFeedback() {
     ? "Или напишите напрямую: " + direct.join(" · ") : "";
 
   if (c.yandexForm) {
-    const url = c.yandexForm + (c.yandexForm.includes("?") ? "&" : "?") + "iframe=1&page=" + encodeURIComponent(document.referrer || location.href);
-    box.innerHTML = `<iframe src="${esc(url)}" title="Форма обратной связи" style="width:100%;min-height:620px;border:0" loading="lazy"></iframe>`;
+    // Официальный способ встраивания Яндекс Форм: ?iframe=1 + embed.js для автовысоты
+    const id = (c.yandexForm.match(/\/u\/([^/?#]+)/) || [])[1] || "form";
+    const url = c.yandexForm.replace(/\/?$/, "/") + "?iframe=1";
+    box.innerHTML = `<div class="card" style="padding:0;overflow:hidden"><iframe src="${esc(url)}" name="ya-form-${esc(id)}" title="Форма обратной связи" style="width:100%;min-height:640px;border:0;display:block"></iframe></div>`;
+    const sc = document.createElement("script");
+    sc.src = "https://forms.yandex.ru/_static/embed.js";
+    sc.async = true;
+    document.body.appendChild(sc);
     return;
   }
   const form = document.getElementById("fb-form");
