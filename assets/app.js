@@ -63,7 +63,9 @@ function renderAds() {
   slots.forEach((slot) => {
     const blockId = cfg.blocks[slot.dataset.ad];
     if (!cfg.enabled || !blockId) {
-      slot.innerHTML = '<div class="ad-placeholder">Место для рекламного блока РСЯ (' + slot.dataset.ad + ")</div>";
+      // Пока реклама не подключена — блок не показываем. Для просмотра мест под рекламу добавьте к адресу ?ads=1
+      if (/[?&]ads=1/.test(location.search)) slot.innerHTML = '<div class="ad-placeholder">Место для рекламного блока РСЯ (' + slot.dataset.ad + ")</div>";
+      else slot.style.display = "none";
       return;
     }
     const id = "yandex_rtb_" + blockId + "_" + slot.dataset.ad;
@@ -79,6 +81,8 @@ function renderPartners() {
   document.querySelectorAll("[data-partner]").forEach((el) => {
     const p = CONFIG.partners[el.dataset.partner];
     if (!p) return;
+    // Без настоящей ссылки блок не показываем (просмотр заглушек — ?ads=1)
+    if (!p.url && !/[?&]ads=1/.test(location.search)) { el.style.display = "none"; return; }
     const link = p.url
       ? '<a href="' + p.url + '" target="_blank" rel="sponsored noopener">' + p.text + " →</a>"
       : "<b>" + p.text + "</b> (здесь будет партнёрская ссылка)";
@@ -508,4 +512,5 @@ document.addEventListener("DOMContentLoaded", () => {
   [...f.children].forEach((el) => { if (!el.classList.contains("grid") && el.id !== "facts") side.appendChild(el); });
   const facts = document.getElementById("facts");
   f.insertBefore(side, facts && facts.parentNode === f ? facts : null);
+  if (facts) f.classList.add("has-facts"); // под формой карточки на всю ширину — правую колонку не «приклеиваем»
 });

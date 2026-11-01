@@ -442,3 +442,6 @@ footer.site a:hover { color: var(--text); }
   .kbd-search { padding: 0; width: 40px; height: 38px; justify-content: center; }
   .kbd-search kbd { display: none; }
 }
+
+/* Если под формой есть карточки на всю ширину, правая колонка не прилипает и не наезжает на них */
+#f.has-facts > .side { position: static; }
