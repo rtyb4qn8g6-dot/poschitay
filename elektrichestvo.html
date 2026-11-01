@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="yandex-verification" content="00e8b1519add9213">
+<meta name="google-site-verification" content="yQ0lI8fsnuMJp4s_FZXRu8ZZx7zAdTzMJfNuSisrTgQ">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Калькулятор электроэнергии — сколько стоит работа прибора в месяц</title>
+<meta name="description" content="Рассчитайте, сколько киловатт-часов потребляет прибор и сколько стоит его работа в день, месяц и год по вашему тарифу.">
+<link rel="canonical" href="https://poschitay24.ru/elektrichestvo">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#07080c">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113981008', 'ym');
+
+    ym(113981008, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<div class="aurora"><i></i><i></i><i></i></div><div class="grid-bg"></div>
+<header class="site"><div class="wrap">
+  <a class="logo" href="./"><b>П</b>Посчитай</a>
+  <nav class="main">
+    <a href="./#wow">Удивительное</a>
+    <a href="./#remont">Ремонт</a>
+    <a href="./#dengi">Финансы</a>
+    <a href="./#zdorovie">Здоровье</a>
+    <a href="./#avto">Авто</a>
+  </nav>
+  <button class="kbd-search" type="button" data-open-search aria-label="Найти калькулятор">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span class="t">Найти калькулятор</span><kbd>⌘K</kbd>
+  </button>
+</div></header>
+<main class="wrap">
+<div class="crumbs"><a href="./">Главная</a> / <a href="./#den">Дом и каждый день</a></div>
+<div class="calc-head"><div class="ic">💡</div><div><h1>Стоимость электричества</h1>
+<p class="lead">Сколько стоит работа любого прибора: чайника, обогревателя, кондиционера, компьютера.</p></div></div>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<form class="card" id="f">
+  <div class="grid">
+    <div style="grid-column:1/-1"><label for="preset">Прибор</label>
+      <select id="preset">
+        <option value="">Свой прибор</option>
+        <option value="2000|0.3">Электрочайник (2 кВт, 20 мин в день)</option>
+        <option value="1500|8" selected>Масляный обогреватель (1,5 кВт, 8 ч)</option>
+        <option value="900|6">Кондиционер (0,9 кВт, 6 ч)</option>
+        <option value="2000|1">Стиральная машина (2 кВт, 1 ч)</option>
+        <option value="2200|0.5">Духовка (2,2 кВт, 30 мин)</option>
+        <option value="350|5">Игровой компьютер (350 Вт, 5 ч)</option>
+        <option value="100|5">Телевизор (100 Вт, 5 ч)</option>
+        <option value="10|5">Светодиодная лампа (10 Вт, 5 ч)</option>
+      </select></div>
+    <div><label for="pw">Мощность, Вт</label><input id="pw" inputmode="decimal" value="1500" data-min="5" data-max="5000" data-step="5"></div>
+    <div><label for="hrs">Часов работы в день</label><input id="hrs" inputmode="decimal" value="8" data-min="0.1" data-max="24" data-step="0.1"></div>
+    <div><label for="tar">Тариф, ₽ за кВт·ч</label><input id="tar" inputmode="decimal" value="7" data-min="1" data-max="15" data-step="0.1"></div>
+  </div>
+  <div class="result" id="out"></div>
+</form>
+
+<div class="ad-slot" data-ad="result"></div>
+
+<h2>Как считается</h2>
+<p>Потребление (кВт·ч) = мощность (кВт) × часы работы. Стоимость = кВт·ч × тариф. Мощность указана на наклейке прибора или в инструкции.</p>
+<p>Холодильник, обогреватель с термостатом и кондиционер работают с перерывами, поэтому реальное потребление у них ниже паспортной мощности × часы. Свой тариф смотрите в квитанции за электричество — он зависит от региона и типа плиты в доме.</p>
+<p class="help-line">💬 Нашли ошибку или нужен другой расчёт? <a href="obratnaya-svyaz">Напишите нам</a> · ☕ <a href="podderzhat">Поддержать проект</a></p>
+
+<h2>Другие калькуляторы</h2>
+<div class="tiles">
+  <a class="tile" href="procenty"><span class="ico">💯</span><b>Калькулятор процентов</b><small>Процент от числа, сколько процентов, прибавить и вычесть %</small></a>
+  <a class="tile" href="dni-mezhdu-datami"><span class="ico">📅</span><b>Дни между датами</b><small>Сколько дней, недель и рабочих дней между датами</small></a>
+  <a class="tile" href="ploshchad"><span class="ico">📐</span><b>Площадь комнаты</b><small>Площадь пола и стен, периметр и объём</small></a>
+  <a class="tile" href="./"><span class="ico">🧮</span><b>Все калькуляторы</b><small>Ремонт, финансы, здоровье, авто и не только</small></a>
+</div>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+<footer class="site"><div class="wrap">
+  <div>
+    <a class="logo" href="./"><b>П</b>Посчитай</a>
+    <p>Бесплатные онлайн-калькуляторы. Расчёты ориентировочные и не заменяют консультацию специалиста. Сайт может содержать рекламу и партнёрские ссылки.</p>
+  </div>
+  <div class="f-links">
+    <a href="./">Все калькуляторы</a>
+    <a href="obratnaya-svyaz">Обратная связь</a>
+    <a href="podderzhat">Поддержать проект</a>
+  </div>
+</div></footer>
+<script src="assets/app.js"></script>
+<script>
+const preset = document.getElementById("preset");
+preset.addEventListener("change", () => {
+  if (!preset.value) return;
+  const [p, h] = preset.value.split("|");
+  document.getElementById("pw").value = p; document.getElementById("hrs").value = String(h).replace(".", ",");
+  ["pw", "hrs"].forEach(id => document.getElementById(id).dispatchEvent(new Event("input", { bubbles: true })));
+});
+autoCalc("f", () => {
+  const out = document.getElementById("out"), kwh = num("pw") / 1000 * num("hrs"), t = num("tar");
+  if (!kwh || !t) { out.innerHTML = "Укажите мощность, часы и тариф."; return; }
+  out.innerHTML = `В месяц: <div class="big">${rub(kwh * 30.4 * t)}</div>
+    <ul>
+      <li>В день: ${fmt(kwh, 2)} кВт·ч — ${fmt(kwh * t, 2)} ₽</li>
+      <li>В месяц: ${fmt(kwh * 30.4, 1)} кВт·ч</li>
+      <li>В год: <b>${rub(kwh * 365 * t)}</b></li>
+    </ul>`;
+});
+</script>
+</body>
+</html>

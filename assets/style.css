@@ -445,3 +445,10 @@ footer.site a:hover { color: var(--text); }
 
 /* Если под формой есть карточки на всю ширину, правая колонка не прилипает и не наезжает на них */
 #f.has-facts > .side { position: static; }
+
+/* Шкала (ИМТ и т. п.) */
+.scale { position: relative; height: 10px; border-radius: 99px; margin: 18px 0 6px;
+  background: linear-gradient(90deg, #22d3ee 0%, #22d3ee 18%, #b6f36a 18%, #b6f36a 45%, #ffd166 45%, #ffd166 63%, #ff8a5c 63%, #ff8a5c 80%, #ff4fa3 80%); }
+.scale i { position: absolute; top: 50%; width: 18px; height: 18px; border-radius: 50%; background: #fff; transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, .35); transition: left .5s cubic-bezier(.2, .8, .2, 1); }
+.scale-labels { display: flex; justify-content: space-between; font-size: .72rem; color: var(--muted); }
