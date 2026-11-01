@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Калькулятор процентов онлайн — процент от числа, прибавить и вычесть процент</title>
+<meta name="description" content="Посчитайте процент от числа, сколько процентов одно число составляет от другого, прибавьте или вычтите процент, узнайте изменение в процентах.">
+<link rel="canonical" href="https://poschitay24.ru/percent.html">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2a6df4">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113981008', 'ym');
+
+    ym(113981008, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html">По<span>считай</span></a>
+  <nav class="main">
+    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
+    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+  </nav>
+</div></header>
+<main class="wrap">
+<h1>Калькулятор процентов</h1>
+<p class="lead">Процент от числа, доля в процентах, наценка и скидка, изменение в процентах — в одном месте.</p>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<form class="card" id="f">
+  <div class="grid">
+    <div style="grid-column:1/-1"><label for="mode">Что посчитать</label>
+      <select id="mode">
+        <option value="of">Сколько составляет X% от числа</option>
+        <option value="share">Сколько процентов X от числа Y</option>
+        <option value="add">Прибавить X% к числу (наценка, НДС)</option>
+        <option value="sub">Вычесть X% из числа (скидка)</option>
+        <option value="chg">На сколько процентов изменилось число</option>
+        <option value="base">Найти число, если X% от него равно Y</option>
+      </select></div>
+    <div><label for="a" id="la">Процент, %</label><input id="a" inputmode="decimal" value="15"></div>
+    <div><label for="b" id="lb">Число</label><input id="b" inputmode="decimal" value="2000"></div>
+  </div>
+  <div class="result" id="out"></div>
+</form>
+
+<div class="ad-slot" data-ad="result"></div>
+
+<h2>Формулы</h2>
+<ul>
+  <li><b>X% от числа:</b> число × X ÷ 100. Например, 15% от 2 000 = 300.</li>
+  <li><b>Сколько процентов X от Y:</b> X ÷ Y × 100. Например, 300 от 2 000 — это 15%.</li>
+  <li><b>Прибавить X%:</b> число × (1 + X ÷ 100). Например, 2 000 + 20% = 2 400.</li>
+  <li><b>Вычесть X%:</b> число × (1 − X ÷ 100). Например, скидка 15% с 2 000 — это 1 700.</li>
+  <li><b>Изменение в процентах:</b> (новое − старое) ÷ старое × 100.</li>
+</ul>
+<p>Обратите внимание: если цену подняли на 20%, а потом снизили на 20%, она не вернётся к исходной — станет на 4% меньше.</p>
+
+<p class="help-line">💬 Нашли ошибку или нужен другой расчёт? <a href="feedback.html">Напишите нам</a> · ☕ <a href="donate.html">Поддержать проект</a></p>
+
+<h2>Другие калькуляторы</h2>
+<div class="tiles">
+  <a class="tile" href="dates.html"><span class="ico">📅</span><b>Дни между датами</b><small>Сколько дней, недель и рабочих дней между датами</small></a>
+  <a class="tile" href="index.html"><span class="ico">🧮</span><b>Все калькуляторы</b><small>Ремонт, стройка, налоги и деньги</small></a>
+</div>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+<footer class="site"><div class="wrap">
+  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
+  Сайт может содержать рекламу и партнёрские ссылки.<br>
+  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+</div></footer>
+<script src="assets/app.js"></script>
+<script>
+const LABELS = {
+  of:   ["Процент, %", "Число"],
+  share:["Часть (X)", "Целое (Y)"],
+  add:  ["Процент, %", "Число"],
+  sub:  ["Процент, %", "Число"],
+  chg:  ["Было", "Стало"],
+  base: ["Процент, %", "Значение этих процентов (Y)"],
+};
+const r = (n) => fmt(n, 2);
+autoCalc("f", () => {
+  const m = document.getElementById("mode").value, a = num("a"), b = num("b"), out = document.getElementById("out");
+  document.getElementById("la").textContent = LABELS[m][0];
+  document.getElementById("lb").textContent = LABELS[m][1];
+  let label, val, note = "";
+  if (m === "of") { label = `${r(a)}% от ${r(b)}`; val = r(b * a / 100); }
+  if (m === "share") { if (!b) return out.innerHTML = "Целое не может быть нулём."; label = `${r(a)} от ${r(b)} — это`; val = r(a / b * 100) + "%"; }
+  if (m === "add") { label = `${r(b)} + ${r(a)}%`; val = r(b * (1 + a / 100)); note = `Прибавка: ${r(b * a / 100)}`; }
+  if (m === "sub") { label = `${r(b)} − ${r(a)}%`; val = r(b * (1 - a / 100)); note = `Скидка: ${r(b * a / 100)}`; }
+  if (m === "chg") { if (!a) return out.innerHTML = "Значение «Было» не может быть нулём."; const c = (b - a) / a * 100; label = c >= 0 ? "Рост" : "Снижение"; val = (c >= 0 ? "+" : "") + r(c) + "%"; note = `Разница: ${r(b - a)}`; }
+  if (m === "base") { if (!a) return out.innerHTML = "Процент не может быть нулём."; label = `Если ${r(a)}% — это ${r(b)}, то 100%`; val = r(b / a * 100); }
+  out.innerHTML = `${label}: <div class="big">${val}</div>${note ? `<ul><li>${note}</li></ul>` : ""}`;
+});
+</script>
+</body>
+</html>

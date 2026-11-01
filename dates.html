@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Калькулятор дней между датами — сколько дней прошло или осталось</title>
+<meta name="description" content="Посчитайте количество дней, недель, месяцев и рабочих дней между двумя датами, или прибавьте к дате нужное число дней.">
+<link rel="canonical" href="https://poschitay24.ru/dates.html">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2a6df4">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113981008', 'ym');
+
+    ym(113981008, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html">По<span>считай</span></a>
+  <nav class="main">
+    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
+    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+  </nav>
+</div></header>
+<main class="wrap">
+<h1>Дни между датами</h1>
+<p class="lead">Сколько дней прошло или осталось, сколько это недель и рабочих дней. Или какая дата будет через N дней.</p>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<form class="card" id="f">
+  <div class="grid">
+    <div style="grid-column:1/-1"><label for="mode">Что посчитать</label>
+      <select id="mode"><option value="diff">Сколько дней между датами</option><option value="add">Прибавить дни к дате</option></select></div>
+    <div><label for="d1">Начальная дата</label><input id="d1" type="date"></div>
+    <div class="m-diff"><label for="d2">Конечная дата</label><input id="d2" type="date"></div>
+    <div class="m-add"><label for="n">Сколько дней прибавить (можно с минусом)</label><input id="n" inputmode="numeric" value="90"></div>
+    <div class="m-diff" style="align-self:end"><label class="check"><input type="checkbox" id="incl"> Включая конечный день</label></div>
+  </div>
+  <div class="result" id="out"></div>
+</form>
+
+<div class="ad-slot" data-ad="result"></div>
+
+<h2>Как считается</h2>
+<p>По умолчанию считается количество полных суток между датами: с 1 по 10 число — 9 дней. Если нужно учесть
+оба дня (например, срок отпуска или командировки), поставьте галочку «Включая конечный день».</p>
+<p>Рабочие дни — это понедельник–пятница. Государственные праздники и переносы выходных не учитываются,
+поэтому точное число рабочих дней сверяйте с производственным календарём.</p>
+
+<p class="help-line">💬 Нашли ошибку или нужен другой расчёт? <a href="feedback.html">Напишите нам</a> · ☕ <a href="donate.html">Поддержать проект</a></p>
+
+<h2>Другие калькуляторы</h2>
+<div class="tiles">
+  <a class="tile" href="percent.html"><span class="ico">💯</span><b>Калькулятор процентов</b><small>Процент от числа, сколько процентов, прибавить и вычесть %</small></a>
+  <a class="tile" href="index.html"><span class="ico">🧮</span><b>Все калькуляторы</b><small>Ремонт, стройка, налоги и деньги</small></a>
+</div>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+<footer class="site"><div class="wrap">
+  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
+  Сайт может содержать рекламу и партнёрские ссылки.<br>
+  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+</div></footer>
+<script src="assets/app.js"></script>
+<script>
+const iso = (d) => d.toISOString().slice(0, 10);
+const today = new Date(); today.setHours(12, 0, 0, 0);
+const d1 = document.getElementById("d1"), d2 = document.getElementById("d2");
+if (!d1.value) d1.value = iso(today);
+if (!d2.value) { const ny = new Date(today.getFullYear() + 1, 0, 1, 12); d2.value = iso(ny); }
+const parse = (v) => { const [y, m, d] = v.split("-").map(Number); return new Date(y, m - 1, d, 12); };
+const plural = (n, a, b, c) => { const k = Math.abs(n) % 100, l = k % 10; return k > 10 && k < 20 ? c : l === 1 ? a : l >= 2 && l <= 4 ? b : c; };
+const DOW = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+autoCalc("f", () => {
+  const add = document.getElementById("mode").value === "add", out = document.getElementById("out");
+  document.querySelectorAll(".m-diff").forEach(e => e.style.display = add ? "none" : "");
+  document.querySelectorAll(".m-add").forEach(e => e.style.display = add ? "" : "none");
+  if (!d1.value) { out.innerHTML = "Укажите дату."; return; }
+  const a = parse(d1.value);
+  if (add) {
+    const n = Math.round(num("n")), r = new Date(a); r.setDate(r.getDate() + n);
+    out.innerHTML = `Получится дата: <div class="big">${r.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" })}</div>
+      <ul><li>Это ${DOW[r.getDay()]}</li></ul>`;
+    return;
+  }
+  if (!d2.value) { out.innerHTML = "Укажите конечную дату."; return; }
+  let b = parse(d2.value), sign = 1, from = a, to = b;
+  if (b < a) { sign = -1; from = b; to = a; }
+  let days = Math.round((to - from) / 864e5) + (document.getElementById("incl").checked ? 1 : 0);
+  let work = 0;
+  for (let d = new Date(from), i = 0; i < days; i++, d.setDate(d.getDate() + 1)) { const w = d.getDay(); if (w && w !== 6) work++; }
+  let months = (to.getFullYear() - from.getFullYear()) * 12 + to.getMonth() - from.getMonth();
+  if (to.getDate() < from.getDate()) months--;
+  out.innerHTML = `${sign < 0 ? "Конечная дата раньше начальной. Прошло" : "Между датами"}: <div class="big">${fmt(days)} ${plural(days, "день", "дня", "дней")}</div>
+    <ul>
+      <li>${fmt(Math.floor(days / 7))} ${plural(Math.floor(days / 7), "неделя", "недели", "недель")} и ${days % 7} ${plural(days % 7, "день", "дня", "дней")}</li>
+      <li>Полных месяцев: ${Math.max(0, months)}</li>
+      <li>Рабочих дней (пн–пт, без праздников): ${fmt(work)}</li>
+      <li>Часов: ${fmt(days * 24)}</li>
+    </ul>`;
+});
+</script>
+</body>
+</html>

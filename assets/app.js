@@ -288,3 +288,98 @@ function setupDonate() {
 }
 
 document.addEventListener("DOMContentLoaded", () => { setupFeedback(); setupDonate(); });
+
+/* ===== Поделиться расчётом ===== */
+// Значения из ссылки (?len=4&wid=3…) подставляются в форму ДО первого расчёта.
+(function prefillFromUrl() {
+  const form = document.getElementById("f");
+  if (!form || !location.search) return;
+  const params = new URLSearchParams(location.search);
+  params.forEach((v, k) => {
+    const el = form.querySelector("#" + CSS.escape(k));
+    if (!el) return;
+    if (el.type === "checkbox") el.checked = v === "1";
+    else el.value = v;
+  });
+})();
+
+function shareUrl() {
+  const form = document.getElementById("f");
+  const params = new URLSearchParams();
+  form.querySelectorAll("input[id], select[id]").forEach((el) => {
+    if (el.type === "checkbox") { if (el.checked) params.set(el.id, "1"); return; }
+    const v = String(el.value).replace(/\s/g, "");
+    if (v !== "") params.set(el.id, v);
+  });
+  return location.origin + location.pathname + "?" + params.toString();
+}
+
+function toast(text) {
+  let t = document.querySelector(".toast");
+  if (!t) { t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t); }
+  t.textContent = text;
+  t.classList.add("show");
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+function goal(name) { try { ym(113981008, "reachGoal", name); } catch (e) {} }
+
+function setupResultTools() {
+  const out = document.getElementById("out");
+  if (!out || !document.getElementById("f")) return;
+  const tools = document.createElement("div");
+  tools.className = "result-tools";
+  tools.innerHTML = '<button type="button" class="tool-btn" data-act="share">🔗 Поделиться расчётом</button>' +
+                    '<button type="button" class="tool-btn" data-act="print">🖨 Сохранить в PDF</button>';
+  out.after(tools);
+  tools.addEventListener("click", async (e) => {
+    const act = e.target.dataset.act;
+    if (act === "share") {
+      const url = shareUrl();
+      const big = out.querySelector(".big");
+      const text = document.title.split(" — ")[0] + (big ? ": " + big.textContent : "");
+      goal("share");
+      if (navigator.share) {
+        try { await navigator.share({ title: document.title, text, url }); return; } catch (err) { if (err.name === "AbortError") return; }
+      }
+      try { await navigator.clipboard.writeText(url); toast("Ссылка скопирована — отправьте её кому угодно"); }
+      catch (err) { prompt("Скопируйте ссылку:", url); }
+    }
+    if (act === "print") { goal("print"); window.print(); }
+  });
+  const pf = document.createElement("div");
+  pf.className = "print-footer";
+  window.addEventListener("beforeprint", () => {
+    pf.textContent = "Расчёт выполнен на poschitay24.ru · " + new Date().toLocaleDateString("ru-RU") + " · Ссылка: " + shareUrl();
+  });
+  tools.after(pf);
+}
+
+/* ===== Тёмная тема ===== */
+function setupThemeToggle() {
+  const wrap = document.querySelector("header.site .wrap");
+  if (!wrap) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "theme-btn";
+  const isDark = () => {
+    const t = document.documentElement.dataset.theme;
+    return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  };
+  const paint = () => {
+    btn.textContent = isDark() ? "☀️" : "🌙";
+    btn.title = btn.ariaLabel = isDark() ? "Светлая тема" : "Тёмная тема";
+  };
+  btn.addEventListener("click", () => {
+    const next = isDark() ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    paint();
+  });
+  const install = wrap.querySelector(".install-btn");
+  wrap.insertBefore(btn, install || null);
+  paint();
+}
+
+document.addEventListener("DOMContentLoaded", () => { setupResultTools(); setupThemeToggle(); });

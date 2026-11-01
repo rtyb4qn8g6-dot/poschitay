@@ -1,7 +1,7 @@
 // Кэш для работы калькуляторов без интернета. При изменении файлов увеличьте версию.
-const CACHE = "poschitay-v3";
+const CACHE = "poschitay-v4";
 const FILES = [
-  "./", "index.html", "tile.html", "wallpaper.html", "laminate.html", "paint.html", "plaster.html", "concrete.html", "brick.html", "gasblock.html", "insulation.html", "mortgage.html", "credit.html", "deposit.html", "ndfl.html", "vacation.html", "sick.html", "property.html", "alimony.html", "npd.html", "usn.html", "feedback.html", "donate.html",
+  "./", "index.html", "tile.html", "wallpaper.html", "laminate.html", "paint.html", "plaster.html", "concrete.html", "brick.html", "gasblock.html", "insulation.html", "mortgage.html", "credit.html", "deposit.html", "ndfl.html", "vacation.html", "sick.html", "property.html", "alimony.html", "npd.html", "usn.html", "percent.html", "dates.html", "feedback.html", "donate.html",
   "assets/style.css", "assets/app.js", "assets/icon.svg", "assets/icon-180.png", "assets/icon-192.png", "assets/icon-512.png", "manifest.webmanifest",
 ];
 
