@@ -44,7 +44,7 @@ const CONFIG = {
   // Донаты. Заполните то, что подключите.
   donate: {
     yoomoney: "",    // номер кошелька ЮMoney, например "4100118000000000"
-    cloudtips: "",   // ссылка CloudTips, например "https://pay.cloudtips.ru/p/abcd1234"
+    cloudtips: "https://pay.cloudtips.ru/p/674bc79f",   // ссылка CloudTips, например "https://pay.cloudtips.ru/p/abcd1234"
     boosty: "",      // ссылка на Boosty, например "https://boosty.to/poschitay"
   },
 };
@@ -274,7 +274,7 @@ function setupDonate() {
       <button type="submit" class="btn">☕ Поддержать</button>
     </form>`);
   }
-  if (d.cloudtips) parts.push(`<a class="btn" href="${esc(d.cloudtips)}" target="_blank" rel="noopener">💳 Чаевые через CloudTips</a>`);
+  if (d.cloudtips) parts.push(`<a class="btn" href="${esc(d.cloudtips)}" target="_blank" rel="noopener">💳 Поддержать любой суммой</a><p class="note">Оплата картой любого банка через защищённый сервис CloudTips (Т-Банк).</p>`);
   if (d.boosty) parts.push(`<a class="btn btn-light" href="${esc(d.boosty)}" target="_blank" rel="noopener">⭐ Подписка на Boosty</a>`);
   box.innerHTML = parts.length ? parts.join("\n")
     : '<div class="ad-placeholder">Способы поддержки скоро появятся. Спасибо, что заглянули!</div>';
