@@ -1,7 +1,7 @@
 // Кэш для работы калькуляторов без интернета. При изменении файлов увеличьте версию.
-const CACHE = "poschitay-v16";
+const CACHE = "poschitay-v17";
 const FILES = [
-  "./", "index.html", "plitka", "oboi", "laminat", "kraska", "shtukaturka", "beton", "kirpich", "gazobeton", "uteplitel", "ipoteka", "kredit", "vklad", "ndfl", "otpusknye", "bolnichnyy", "nalogovyy-vychet", "alimenty", "samozanyatye", "nalogi-ip-usn", "zhizn-v-cifrah", "nastoyashchaya-cena", "finansovaya-svoboda", "procenty", "slozhnyy-procent", "inflyaciya", "kreditnaya-nagruzka", "transportnyy-nalog", "vozrast", "perevod-edinic", "kommunalka", "razdelit-schet", "son", "vozrast-pitomca", "imt", "kalorii", "norma-vody", "beremennost", "rashod-topliva", "stoimost-poezdki", "elektrichestvo", "ploshchad", "dni-mezhdu-datami", "obratnaya-svyaz", "podderzhat",
+  "./", "index.html", "plitka", "oboi", "laminat", "kraska", "shtukaturka", "beton", "kirpich", "gazobeton", "uteplitel", "ipoteka", "kredit", "vklad", "ndfl", "otpusknye", "bolnichnyy", "nalogovyy-vychet", "alimenty", "samozanyatye", "nalogi-ip-usn", "zhizn-v-cifrah", "nastoyashchaya-cena", "finansovaya-svoboda", "procenty", "picca", "stoimost-rebenka", "shashlyk", "gramm-v-lozhke", "dosrochnoe-pogashenie", "nds", "arenda-ili-ipoteka", "kondicioner", "promille", "shiny", "slozhnyy-procent", "inflyaciya", "kreditnaya-nagruzka", "transportnyy-nalog", "vozrast", "perevod-edinic", "kommunalka", "razdelit-schet", "son", "vozrast-pitomca", "imt", "kalorii", "norma-vody", "beremennost", "rashod-topliva", "stoimost-poezdki", "elektrichestvo", "ploshchad", "dni-mezhdu-datami", "obratnaya-svyaz", "podderzhat",
   "assets/style.css", "assets/app.js", "assets/icon.svg", "assets/icon-180.png", "assets/icon-192.png", "assets/icon-512.png", "manifest.webmanifest",
 ];
 
