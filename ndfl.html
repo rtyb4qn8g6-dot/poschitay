@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/icon.svg">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#2a6df4">
+<meta name="theme-color" content="#07080c">
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -27,16 +27,24 @@
 </head>
 <body>
 <noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<div class="aurora"><i></i><i></i><i></i></div><div class="grid-bg"></div>
 <header class="site"><div class="wrap">
-  <a class="logo" href="index.html">По<span>считай</span></a>
+  <a class="logo" href="index.html"><b>П</b>Посчитай</a>
   <nav class="main">
-    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
-    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+    <a href="index.html#wow">Удивительное</a>
+    <a href="index.html#remont">Ремонт</a>
+    <a href="index.html#dengi">Финансы</a>
+    <a href="index.html#den">На каждый день</a>
   </nav>
+  <button class="kbd-search" type="button" data-open-search aria-label="Найти калькулятор">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span class="t">Найти калькулятор</span><kbd>⌘K</kbd>
+  </button>
 </div></header>
 <main class="wrap">
-<h1>Калькулятор НДФЛ и зарплаты на руки</h1>
-<p class="lead">Сколько налога удержат и сколько вы получите на руки за год и в месяц.</p>
+<div class="crumbs"><a href="index.html">Главная</a> / <a href="index.html#dengi">Финансы и налоги</a></div>
+<div class="calc-head"><div class="ic">💼</div><div><h1>Калькулятор НДФЛ и зарплаты на руки</h1>
+<p class="lead">Сколько налога удержат и сколько вы получите на руки за год и в месяц.</p></div></div>
 
 <div class="ad-slot" data-ad="top"></div>
 
@@ -44,7 +52,7 @@
   <div class="grid">
     <div><label for="dir">Что известно</label>
       <select id="dir"><option value="gross">Зарплата до вычета налога</option><option value="net">Зарплата на руки</option></select></div>
-    <div><label for="sal">Сумма в месяц, ₽</label><input id="sal" inputmode="decimal" value="150000"></div>
+    <div><label for="sal">Сумма в месяц, ₽</label><input id="sal" inputmode="decimal" value="150000" data-min="10000" data-max="1000000" data-step="1000"></div>
   </div>
   <div class="result" id="out"></div>
   <div data-partner="ndfl"></div>
@@ -82,9 +90,15 @@
 <div class="ad-slot" data-ad="bottom"></div>
 </main>
 <footer class="site"><div class="wrap">
-  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
-  Сайт может содержать рекламу и партнёрские ссылки.<br>
-  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+  <div>
+    <a class="logo" href="index.html"><b>П</b>Посчитай</a>
+    <p>Бесплатные онлайн-калькуляторы. Расчёты ориентировочные и не заменяют консультацию специалиста. Сайт может содержать рекламу и партнёрские ссылки.</p>
+  </div>
+  <div class="f-links">
+    <a href="index.html">Все калькуляторы</a>
+    <a href="feedback.html">Обратная связь</a>
+    <a href="donate.html">Поддержать проект</a>
+  </div>
 </div></footer>
 <script src="assets/app.js"></script>
 <script>

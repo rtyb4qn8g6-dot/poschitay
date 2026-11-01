@@ -365,7 +365,7 @@ function setupThemeToggle() {
   btn.className = "theme-btn";
   const isDark = () => {
     const t = document.documentElement.dataset.theme;
-    return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return t ? t === "dark" : true;
   };
   const paint = () => {
     btn.textContent = isDark() ? "☀️" : "🌙";
@@ -383,3 +383,129 @@ function setupThemeToggle() {
 }
 
 document.addEventListener("DOMContentLoaded", () => { setupResultTools(); setupThemeToggle(); });
+
+
+/* ===== Каталог калькуляторов (поиск ⌘K и подсказки на главной) ===== */
+const CALCS = [
+  ["🧬", "Жизнь в цифрах", "life.html", "возраст сердце марс дни рождения удивительное"],
+  ["⏳", "Настоящая цена покупки", "true-price.html", "кофе привычка часы работы удивительное"],
+  ["🏝️", "Когда можно не работать", "freedom.html", "пенсия капитал свобода fire удивительное"],
+  ["🏦", "Ипотека", "mortgage.html", "кредит жильё квартира платёж"],
+  ["💳", "Кредит", "credit.html", "займ платёж график погашения"],
+  ["💰", "Вклад", "deposit.html", "депозит проценты капитализация"],
+  ["💼", "НДФЛ и зарплата на руки", "ndfl.html", "налог доход зарплата"],
+  ["🏖️", "Отпускные", "vacation.html", "отпуск средний заработок"],
+  ["🤒", "Больничный", "sick.html", "пособие нетрудоспособность"],
+  ["🏠", "Вычет за квартиру", "property.html", "налог возврат ндфл имущественный"],
+  ["👨‍👧", "Алименты", "alimony.html", "дети"],
+  ["🧾", "Налог самозанятого", "npd.html", "нпд самозанятость"],
+  ["📊", "Налоги ИП на УСН", "usn.html", "упрощёнка взносы ип"],
+  ["💯", "Проценты", "percent.html", "процент скидка наценка ндс"],
+  ["📅", "Дни между датами", "dates.html", "дата срок рабочие дни"],
+  ["🧱", "Плитка", "tile.html", "кафель ванная пол стены"],
+  ["🧻", "Обои", "wallpaper.html", "рулоны стены"],
+  ["🪵", "Ламинат", "laminate.html", "пол упаковки"],
+  ["🎨", "Краска", "paint.html", "покраска стены потолок"],
+  ["🪣", "Штукатурка", "plaster.html", "стены выравнивание"],
+  ["🏗️", "Бетон", "concrete.html", "фундамент цемент плита"],
+  ["🧱", "Кирпич", "brick.html", "кладка стены"],
+  ["🔲", "Газобетон", "gasblock.html", "блоки газосиликат"],
+  ["🧶", "Утеплитель", "insulation.html", "минвата пенопласт"],
+];
+const normQ = (t) => t.toLowerCase().replace(/ё/g, "е");
+function findCalcs(q) {
+  q = normQ(q.trim());
+  return q ? CALCS.filter((c) => normQ(c[1] + " " + c[3]).includes(q)) : CALCS.slice(0, 8);
+}
+function renderList(box, list) {
+  box.innerHTML = list.length
+    ? list.map((c, i) => `<a href="${c[2]}" class="${i ? "" : "active"}"><span class="em">${c[0]}</span>${c[1]}<small>↵</small></a>`).join("")
+    : '<a href="feedback.html" class="active"><span class="em">💡</span>Такого пока нет — предложить калькулятор<small>→</small></a>';
+}
+function keyNav(input, box) {
+  input.addEventListener("keydown", (e) => {
+    const items = [...box.querySelectorAll("a")];
+    let i = items.findIndex((a) => a.classList.contains("active"));
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault(); items[i]?.classList.remove("active");
+      i = (i + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+      items[i]?.classList.add("active"); items[i]?.scrollIntoView({ block: "nearest" });
+    }
+    if (e.key === "Enter" && items[i]) { e.preventDefault(); location.href = items[i].getAttribute("href"); }
+  });
+}
+
+function setupPalette() {
+  const inline = document.getElementById("q");
+  const pal = document.createElement("div");
+  pal.className = "palette";
+  pal.innerHTML = '<div class="palette-box" role="dialog" aria-label="Поиск калькулятора"><input type="search" placeholder="Найти калькулятор…" autocomplete="off"><div class="palette-list"></div></div>';
+  document.body.appendChild(pal);
+  const input = pal.querySelector("input"), list = pal.querySelector(".palette-list");
+  const open = () => {
+    if (inline) { inline.focus(); inline.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+    pal.classList.add("open"); input.value = ""; renderList(list, findCalcs("")); setTimeout(() => input.focus(), 10);
+  };
+  const close = () => pal.classList.remove("open");
+  input.addEventListener("input", () => renderList(list, findCalcs(input.value)));
+  keyNav(input, list);
+  pal.addEventListener("click", (e) => { if (e.target === pal) close(); });
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); open(); }
+    if (e.key === "Escape") close();
+  });
+  document.querySelectorAll("[data-open-search]").forEach((b) => b.addEventListener("click", open));
+
+  // Подсказки в большом поиске на главной
+  const sug = document.getElementById("suggest");
+  if (inline && sug) {
+    const show = () => { renderList(sug, findCalcs(inline.value)); sug.classList.add("show"); };
+    inline.addEventListener("input", show);
+    inline.addEventListener("focus", show);
+    inline.addEventListener("blur", () => setTimeout(() => sug.classList.remove("show"), 160));
+    keyNav(inline, sug);
+  }
+}
+
+/* ===== Ползунки для полей с data-min / data-max ===== */
+function setupSliders() {
+  document.querySelectorAll("input[data-min][data-max]").forEach((inp) => {
+    const r = document.createElement("input");
+    r.type = "range"; r.min = inp.dataset.min; r.max = inp.dataset.max; r.step = inp.dataset.step || 1;
+    r.setAttribute("aria-label", inp.labels?.[0]?.textContent || "Ползунок");
+    const paint = () => { const p = (r.value - r.min) / (r.max - r.min) * 100;
+      r.style.background = `linear-gradient(90deg, var(--violet) ${p}%, var(--line) ${p}%)`; };
+    const fromInput = () => { r.value = num(inp.id) || 0; paint(); };
+    r.addEventListener("input", () => {
+      inp.value = groupDigits(String(+r.value).replace(".", ","));
+      paint();
+      inp.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    inp.addEventListener("input", fromInput);
+    inp.after(r);
+    fromInput();
+  });
+}
+
+/* Подсветка плиток под курсором */
+function setupGlow() {
+  document.querySelectorAll(".tile, .bcard").forEach((c) => c.addEventListener("pointermove", (e) => {
+    const b = c.getBoundingClientRect();
+    c.style.setProperty("--mx", e.clientX - b.left + "px"); c.style.setProperty("--my", e.clientY - b.top + "px");
+  }));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .1 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+}
+
+document.addEventListener("DOMContentLoaded", () => { setupPalette(); setupSliders(); setupGlow(); });
+
+/* Раскладка формы: поля слева, всё остальное (результат, кнопки, партнёр) — в правой колонке */
+document.addEventListener("DOMContentLoaded", () => {
+  const f = document.getElementById("f");
+  if (!f || f.querySelector(".side")) return;
+  const side = document.createElement("div");
+  side.className = "side";
+  [...f.children].forEach((el) => { if (!el.classList.contains("grid") && el.id !== "facts") side.appendChild(el); });
+  const facts = document.getElementById("facts");
+  f.insertBefore(side, facts && facts.parentNode === f ? facts : null);
+});

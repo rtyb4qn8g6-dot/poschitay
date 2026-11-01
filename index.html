@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<title>Посчитай — онлайн-калькуляторы для ремонта и налогов</title>
+<title>Посчитай — онлайн-калькуляторы для ремонта, финансов и жизни</title>
 <meta name="description" content="Бесплатные онлайн-калькуляторы для ремонта, стройки и финансов: плитка, обои, бетон, кирпич, газобетон, утеплитель, ипотека, кредит, вклад, НДФЛ, отпускные, больничный, алименты, налоги самозанятых и ИП, проценты и дни между датами.">
 <link rel="canonical" href="https://poschitay24.ru/">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="assets/icon.svg">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#2a6df4">
+<meta name="theme-color" content="#07080c">
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -27,31 +27,79 @@
 </head>
 <body>
 <noscript><div><img src="https://mc.yandex.ru/watch/113981008" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<div class="aurora"><i></i><i></i><i></i></div><div class="grid-bg"></div>
 <header class="site"><div class="wrap">
-  <a class="logo" href="index.html">По<span>считай</span></a>
+  <a class="logo" href="index.html"><b>П</b>Посчитай</a>
   <nav class="main">
-    <a href="index.html#remont">Ремонт<span class="nav-long"> и стройка</span></a>
-    <a href="index.html#dengi">Деньги<span class="nav-long"> и налоги</span></a>
+    <a href="index.html#wow">Удивительное</a>
+    <a href="index.html#remont">Ремонт</a>
+    <a href="index.html#dengi">Финансы</a>
+    <a href="index.html#den">На каждый день</a>
   </nav>
+  <button class="kbd-search" type="button" data-open-search aria-label="Найти калькулятор">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <span class="t">Найти калькулятор</span><kbd>⌘K</kbd>
+  </button>
 </div></header>
 <main class="wrap">
-<h1>Калькуляторы для ремонта и финансов</h1>
-<p class="lead">Быстро посчитайте, сколько покупать материалов и сколько платить налогов. Бесплатно и без регистрации.</p>
+  <section class="hero">
+    <span class="pill"><span class="dot"></span>24 калькулятора · бесплатно · без регистрации</span>
+    <h1>Посчитай <span class="grad-text">всё</span> за&nbsp;секунды</h1>
+    <p class="lead">Ремонт, деньги, налоги и удивительные факты о вашей жизни — точные расчёты с понятными объяснениями.</p>
+    <div class="search-xl">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Например: ипотека, плитка, отпускные…" autocomplete="off" aria-label="Найти калькулятор">
+      <div class="suggest" id="suggest"></div>
+    </div>
+    <div class="chips">
+      <a class="chip" href="mortgage.html">🏦 Ипотека</a><a class="chip" href="tile.html">🧱 Плитка</a>
+      <a class="chip" href="ndfl.html">💼 Зарплата на руки</a><a class="chip" href="percent.html">💯 Проценты</a>
+      <a class="chip" href="life.html">🧬 Жизнь в цифрах</a>
+    </div>
+  </section>
 
-<div class="search"><input id="search" type="search" placeholder="🔍 Найти: плитка, ипотека, отпуск…" aria-label="Поиск калькулятора"></div>
-<p class="nothing" id="nothing">Ничего не нашлось. Попробуйте другое слово.</p>
+  <section class="stats reveal">
+    <div><b data-count="24">24</b><span>калькулятора</span></div>
+    <div><b data-count="0" data-suffix=" ₽">0 ₽</b><span>стоимость</span></div>
+    <div><b data-count="2" data-suffix=" сек">2 сек</b><span>на расчёт</span></div>
+    <div><b data-count="100" data-suffix="%">100%</b><span>удобно на телефоне</span></div>
+  </section>
 
-<div class="ad-slot" data-ad="top"></div>
+  <div class="ad-slot" data-ad="top"></div>
 
-<h2 id="wow">🤯 Удивительные расчёты</h2>
-<div class="tiles">
-  <a class="tile wow" href="life.html"><span class="ico">🧬</span><b>Жизнь в цифрах</b><small>Сколько раз билось сердце, возраст на Марсе, ваш 10 000-й день</small></a>
-  <a class="tile wow" href="true-price.html"><span class="ico">⏳</span><b>Настоящая цена покупки</b><small>Сколько часов жизни стоит покупка и во что превратится привычка</small></a>
-  <a class="tile wow" href="freedom.html"><span class="ico">🏝️</span><b>Когда можно не работать</b><small>Сколько накопить, чтобы жить на проценты, и в каком возрасте</small></a>
-</div>
+  <div class="section-h reveal" id="wow">
+    <h2>Расчёты, которые<br><span class="grad-text">удивляют</span></h2>
+    <p>Не просто цифры, а взгляд на привычные вещи под новым углом. Попробуйте — и захочется поделиться.</p>
+  </div>
+  <section class="bento">
+    <a class="bcard b-life reveal" href="life.html">
+      <span class="tag">Жизнь в цифрах</span>
+      <h3>Пока вы читаете эту страницу,<br>ваше сердце ударило</h3>
+      <div style="display:flex;align-items:end;gap:14px;margin-top:auto"><span class="big-num" id="beats">0</span><span class="heart">❤️</span></div>
+      <p>Узнайте, сколько раз оно билось за всю жизнь, сколько вам лет на Марсе и когда ваш 10 000-й день →</p>
+    </a>
+    <a class="bcard b-mort reveal" href="mortgage.html">
+      <span class="tag">Ипотека</span>
+      <h3>Квартира за 8 млн на 25 лет — это</h3>
+      <span class="big-num"><span id="mortPay">38 658</span> ₽<small style="font-size:.4em;color:var(--muted);font-weight:600"> / мес</small></span>
+      <svg class="mini-chart" viewBox="0 0 300 100" preserveAspectRatio="none" id="mortChart"></svg>
+    </a>
+    <a class="bcard b-sm reveal" href="true-price.html">
+      <span class="tag">Настоящая цена</span><h3>Кофе за 300 ₽ в день</h3>
+      <span class="big-num grad-text" style="font-size:2.2rem">1,1 млн ₽</span><p>за 10 лет. А если вкладывать — 2,1 млн</p>
+    </a>
+    <a class="bcard b-sm reveal" href="freedom.html">
+      <span class="tag">Свобода</span><h3>Когда можно не работать?</h3>
+      <span class="big-num" style="font-size:2.2rem">🏝️ в 52?</span><p>Посчитайте свой возраст свободы</p>
+    </a>
+    <a class="bcard b-sm reveal" href="dates.html">
+      <span class="tag">Даты</span><h3>До Нового года осталось</h3>
+      <span class="big-num" id="ny" style="font-size:2.2rem">—</span><p>и это всего лишь <span id="nySat">—</span> суббот</p>
+    </a>
+  </section>
 
-<h2 id="remont">🔨 Ремонт и стройка</h2>
-<div class="tiles">
+  <div class="section-h reveal" id="remont"><h2>🔨 Ремонт и стройка</h2><p>Сколько покупать материалов — с запасом, упаковками и подсказками мастеров.</p></div>
+  <div class="tiles">
   <a class="tile" href="tile.html"><span class="ico">🧱</span><b>Калькулятор плитки</b><small>Пол и стены, с учётом шва, запаса и упаковок</small></a>
   <a class="tile" href="wallpaper.html"><span class="ico">🧻</span><b>Калькулятор обоев</b><small>Сколько рулонов нужно на комнату с учётом раппорта</small></a>
   <a class="tile" href="laminate.html"><span class="ico">🪵</span><b>Калькулятор ламината</b><small>Упаковки, подложка и плинтус</small></a>
@@ -63,8 +111,8 @@
   <a class="tile" href="insulation.html"><span class="ico">🧶</span><b>Калькулятор утеплителя</b><small>Упаковки минваты или пенополистирола</small></a>
 </div>
 
-<h2 id="dengi">💰 Налоги и деньги</h2>
-<div class="tiles">
+  <div class="section-h reveal" id="dengi"><h2>💰 Финансы и налоги</h2><p>Кредиты, вклады, зарплата, налоги и пособия — по актуальным правилам.</p></div>
+  <div class="tiles">
   <a class="tile" href="mortgage.html"><span class="ico">🏦</span><b>Ипотечный калькулятор</b><small>Платёж, переплата и нужный доход</small></a>
   <a class="tile" href="credit.html"><span class="ico">💳</span><b>Кредитный калькулятор</b><small>Аннуитетный и дифференцированный платёж, график</small></a>
   <a class="tile" href="deposit.html"><span class="ico">💰</span><b>Калькулятор вклада</b><small>Доход с капитализацией и налог на проценты</small></a>
@@ -77,20 +125,61 @@
   <a class="tile" href="usn.html"><span class="ico">📊</span><b>Налоги ИП на УСН</b><small>6% или 15%, страховые взносы, чистый доход</small></a>
 </div>
 
-<h2 id="den">🧮 На каждый день</h2>
-<div class="tiles">
+  <div class="section-h reveal" id="den"><h2>🧮 На каждый день</h2><p>Проценты, даты и другие расчёты, которые нужны постоянно.</p></div>
+  <div class="tiles">
   <a class="tile" href="percent.html"><span class="ico">💯</span><b>Калькулятор процентов</b><small>Процент от числа, сколько процентов, прибавить и вычесть %</small></a>
   <a class="tile" href="dates.html"><span class="ico">📅</span><b>Дни между датами</b><small>Сколько дней, недель и рабочих дней между датами</small></a>
 </div>
 
-<div class="ad-slot" data-ad="bottom"></div>
+  <div class="ad-slot" data-ad="bottom"></div>
+
+  <section class="cta reveal">
+    <h2>Не нашли нужный расчёт?</h2>
+    <p>Напишите, какой калькулятор вам нужен — самые популярные просьбы мы делаем в первую очередь.</p>
+    <a class="btn" href="feedback.html">Предложить калькулятор →</a>
+    <a class="btn ghost" href="donate.html">☕ Поддержать</a>
+  </section>
 </main>
 <footer class="site"><div class="wrap">
-  © Посчитай. Расчёты ориентировочные и не заменяют консультацию специалиста.
-  Сайт может содержать рекламу и партнёрские ссылки.<br>
-  <a href="feedback.html">Обратная связь</a> · <a href="donate.html">Поддержать проект</a>
+  <div>
+    <a class="logo" href="index.html"><b>П</b>Посчитай</a>
+    <p>Бесплатные онлайн-калькуляторы. Расчёты ориентировочные и не заменяют консультацию специалиста. Сайт может содержать рекламу и партнёрские ссылки.</p>
+  </div>
+  <div class="f-links">
+    <a href="index.html">Все калькуляторы</a>
+    <a href="feedback.html">Обратная связь</a>
+    <a href="donate.html">Поддержать проект</a>
+  </div>
 </div></footer>
 <script src="assets/app.js"></script>
-
+<script>
+// Живой счётчик ударов сердца с момента открытия страницы (≈70 в минуту)
+const t0 = performance.now(), beats = document.getElementById("beats");
+setInterval(() => { beats.textContent = Math.floor((performance.now() - t0) / 60000 * 70); }, 150);
+// Мини-график ипотеки: 6 млн под 6% на 25 лет
+(function () {
+  const S = 6e6, i = 0.06 / 12, n = 300, pay = S * i / (1 - Math.pow(1 + i, -n));
+  document.getElementById("mortPay").textContent = Math.round(pay).toLocaleString("ru-RU");
+  let rest = S; const pts = [];
+  for (let m = 0; m <= n; m += 6) { pts.push(rest); for (let j = 0; j < 6; j++) rest = Math.max(0, rest * (1 + i) - pay); }
+  const line = pts.map((v, k) => `${(k / (pts.length - 1) * 300).toFixed(1)},${(100 - v / S * 92).toFixed(1)}`).join(" ");
+  document.getElementById("mortChart").innerHTML =
+    `<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7c5cff" stop-opacity=".55"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></linearGradient></defs>
+     <polygon points="0,100 ${line} 300,100" fill="url(#g)"/><polyline points="${line}" fill="none" stroke="#22d3ee" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`;
+})();
+// До Нового года
+(function () {
+  const now = new Date(), ny = new Date(now.getFullYear() + 1, 0, 1), d = Math.ceil((ny - now) / 864e5);
+  document.getElementById("ny").textContent = d + " дн.";
+  document.getElementById("nySat").textContent = Math.floor(d / 7);
+})();
+// «Набегающие» цифры
+const cio = new IntersectionObserver((es) => es.forEach((e) => {
+  if (!e.isIntersecting) return; const el = e.target, to = +el.dataset.count, suf = el.dataset.suffix || ""; let k = 0;
+  const step = () => { k = Math.min(1, k + 0.04); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(step); };
+  step(); cio.unobserve(el);
+}), { threshold: .5 });
+document.querySelectorAll("[data-count]").forEach((c) => cio.observe(c));
+</script>
 </body>
 </html>
