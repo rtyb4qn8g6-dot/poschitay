@@ -535,3 +535,83 @@ document.addEventListener("DOMContentLoaded", () => {
   f.insertBefore(side, facts && facts.parentNode === f ? facts : null);
   if (facts) f.classList.add("has-facts"); // под формой карточки на всю ширину — правую колонку не «приклеиваем»
 });
+
+/* ===== Картинка для сторис (1080×1920) ===== */
+function wrapText(ctx, text, maxW) {
+  const words = String(text).split(/\s+/), lines = []; let cur = "";
+  for (const w of words) { const t = cur ? cur + " " + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur);
+  return lines;
+}
+async function makeStory({ title, label, value, lines, url }) {
+  const W = 1080, H = 1920, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), F = '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  x.fillStyle = "#07080c"; x.fillRect(0, 0, W, H);
+  const blob = (cx, cy, r, col, a) => { const g = x.createRadialGradient(cx, cy, 0, cx, cy, r); g.addColorStop(0, col.replace("A", a)); g.addColorStop(1, col.replace("A", 0)); x.fillStyle = g; x.fillRect(0, 0, W, H); };
+  blob(150, 250, 900, "rgba(124,92,255,A)", .55); blob(1000, 1500, 900, "rgba(34,211,238,A)", .35); blob(300, 1850, 700, "rgba(255,79,163,A)", .25);
+  const grad = x.createLinearGradient(0, 0, W, 0); grad.addColorStop(0, "#7c5cff"); grad.addColorStop(.55, "#22d3ee"); grad.addColorStop(1, "#b6f36a");
+  // логотип
+  x.fillStyle = grad; x.beginPath(); x.roundRect(90, 120, 110, 110, 30); x.fill();
+  x.fillStyle = "#07080c"; x.font = `900 70px ${F}`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText("П", 145, 178);
+  x.textAlign = "left"; x.fillStyle = "#f4f5f8"; x.font = `800 64px ${F}`; x.fillText("Посчитай", 230, 178);
+  // заголовок калькулятора
+  let y = 420; x.textBaseline = "alphabetic"; x.fillStyle = "#8b90a0"; x.font = `600 46px ${F}`;
+  for (const l of wrapText(x, title, W - 180).slice(0, 2)) { x.fillText(l, 90, y); y += 62; }
+  // подпись и главное число
+  y += 90; x.fillStyle = "#f4f5f8"; x.font = `600 56px ${F}`;
+  for (const l of wrapText(x, label, W - 180).slice(0, 3)) { x.fillText(l, 90, y); y += 72; }
+  y += 40; let size = 190; x.font = `850 ${size}px ${F}`;
+  while (x.measureText(value).width > W - 180 && size > 70) { size -= 6; x.font = `850 ${size}px ${F}`; }
+  const vLines = x.measureText(value).width > W - 180 ? wrapText(x, value, W - 180) : [value];
+  x.fillStyle = grad;
+  for (const l of vLines.slice(0, 2)) { y += size * .95; x.fillText(l, 90, y); }
+  // детали
+  y += 110; x.font = `500 44px ${F}`;
+  for (const ln of (lines || []).slice(0, 4)) {
+    const parts = wrapText(x, ln, W - 230).slice(0, 2);
+    x.fillStyle = "#b6f36a"; x.beginPath(); x.arc(108, y - 15, 9, 0, 7); x.fill();
+    x.fillStyle = "#d9dbe3";
+    for (const p of parts) { x.fillText(p, 140, y); y += 58; }
+    y += 22;
+    if (y > H - 330) break;
+  }
+  // низ: призыв и адрес
+  x.fillStyle = "rgba(255,255,255,.08)"; x.beginPath(); x.roundRect(90, H - 270, W - 180, 150, 36); x.fill();
+  x.fillStyle = "#f4f5f8"; x.font = `700 46px ${F}`; x.fillText("А сколько получится у тебя?", 140, H - 205);
+  x.fillStyle = "#b6f36a"; x.font = `700 42px ${F}`; x.fillText(url, 140, H - 145);
+  return new Promise((res) => c.toBlob(res, "image/jpeg", 0.9));
+}
+async function shareStory(data) {
+  goal("story");
+  const blob = await makeStory(data), file = new File([blob], "poschitay24.jpg", { type: "image/jpeg" });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: data.title, text: data.label + " " + data.value + " — " + data.url }); return; }
+    catch (e) { if (e.name === "AbortError") return; }
+  }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "poschitay24.jpg"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("Картинка сохранена — можно выложить в сторис");
+}
+const pageUrlShort = () => "poschitay24.ru" + location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+document.addEventListener("DOMContentLoaded", () => {
+  const h1 = document.querySelector("h1"); if (!h1) return;
+  const add = (container, getData) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = container.classList.contains("actions") ? "btn ghost" : "tool-btn";
+    b.textContent = "🖼 Картинка для сторис"; b.addEventListener("click", () => shareStory(getData())); container.appendChild(b);
+  };
+  const tools = document.querySelector(".result-tools"), out = document.getElementById("out");
+  if (tools && out) add(tools, () => {
+    const big = out.querySelector(".big");
+    const label = (out.firstChild && out.firstChild.nodeType === 3 ? out.firstChild.textContent : "").trim().replace(/:\s*$/, "");
+    const lines = [...out.querySelectorAll("li")].map((li) => li.textContent.trim());
+    const facts = [...document.querySelectorAll(".fact")].slice(0, 3).map((f) => f.querySelector(".fv").textContent + " — " + f.querySelector("small").textContent);
+    return { title: h1.textContent.trim(), label, value: big ? big.textContent.trim() : "", lines: lines.concat(facts), url: pageUrlShort() };
+  });
+  const actions = document.querySelector(".calc .actions"), main = document.getElementById("main");
+  if (actions && main) add(actions, () => ({
+    title: h1.textContent.trim(), label: document.getElementById("mainLbl")?.textContent || "", value: main.textContent.trim(),
+    lines: [...document.querySelectorAll(".kpi")].map((k) => k.querySelector("span").textContent + ": " + k.querySelector("b").textContent)
+      .concat([document.getElementById("insight")?.textContent.replace("💡", "").trim()].filter(Boolean)),
+    url: pageUrlShort(),
+  }));
+});
