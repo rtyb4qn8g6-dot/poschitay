@@ -47,6 +47,12 @@ const CONFIG = {
     cloudtips: "https://pay.cloudtips.ru/p/674bc79f",   // ссылка CloudTips, например "https://pay.cloudtips.ru/p/abcd1234"
     boosty: "",      // ссылка на Boosty, например "https://boosty.to/poschitay"
   },
+  // Соцсети. Пустая ссылка — кнопка не показывается.
+  social: {
+    telegram: "https://t.me/poschitay24",
+    vk: "https://vk.com/poschitay24",
+    instagram: "https://www.instagram.com/poschitay24/",
+  },
 };
 
 /* ===== Реклама ===== */
@@ -387,6 +393,30 @@ function setupThemeToggle() {
 }
 
 document.addEventListener("DOMContentLoaded", () => { setupResultTools(); setupThemeToggle(); });
+
+/* ===== Соцсети: в подвале и под результатом ===== */
+const SOCIAL = [
+  { key: "telegram", name: "Telegram" },
+  { key: "vk", name: "ВКонтакте" },
+  { key: "instagram", name: "Instagram" },
+].filter((s) => CONFIG.social[s.key]);
+function socialLinks(cls) {
+  return SOCIAL.map((s) => `<a class="${cls}" href="${esc(CONFIG.social[s.key])}" target="_blank" rel="noopener" data-soc="${s.key}">${s.name}</a>`).join("");
+}
+function setupSocial() {
+  if (!SOCIAL.length) return;
+  document.addEventListener("click", (e) => { const a = e.target.closest("[data-soc]"); if (a) goal("social_" + a.dataset.soc); });
+  const fl = document.querySelector("footer.site .f-links");
+  if (fl) fl.insertAdjacentHTML("beforeend", socialLinks("f-soc"));
+  // Под результатом: после кнопок «Поделиться» или, в калькуляторах с крупным числом, после .actions
+  const anchor = document.querySelector(".result-tools") || (document.getElementById("main") && document.querySelector(".calc .actions"));
+  if (!anchor) return;
+  const box = document.createElement("div");
+  box.className = "social-line";
+  box.innerHTML = "<span>Удивительные расчёты каждый день —</span>" + socialLinks("soc-btn");
+  anchor.after(box);
+}
+document.addEventListener("DOMContentLoaded", setupSocial);
 
 
 /* ===== Каталог калькуляторов (поиск ⌘K и подсказки на главной) ===== */

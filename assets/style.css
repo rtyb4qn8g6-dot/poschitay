@@ -171,6 +171,14 @@ input[type=range]:active::-webkit-slider-thumb { box-shadow: 0 0 0 10px rgba(124
 }
 .tool-btn:hover { border-color: var(--line-2); transform: translateY(-1px); }
 
+/* Соцсети под результатом */
+.social-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: .88rem; }
+.soc-btn {
+  color: var(--text); text-decoration: none; border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px; font-weight: 600; transition: border-color .2s, background .2s;
+}
+.soc-btn:hover { border-color: var(--line-2); background: var(--accent-soft); }
+
 /* Партнёрский блок */
 .partner {
   border: 1px solid var(--line); border-left: 3px solid var(--lime); background: var(--glass);
@@ -419,7 +427,7 @@ footer.site a:hover { color: var(--text); }
 @media print {
   :root { --text: #000; --muted: #444; --line: #ccc; --field: #fff; --panel: #fff; --bg: #fff; --bg2: #fff; color-scheme: light; }
   body { background: #fff; color: #000; }
-  .aurora, .grid-bg, header.site, footer.site, .ad-slot, [data-partner], .result-tools, .result-bar, .help-line,
+  .aurora, .grid-bg, header.site, footer.site, .ad-slot, [data-partner], .result-tools, .social-line, .result-bar, .help-line,
   .tiles, h2, .toast, .palette, .crumbs, .theme-btn, .install-btn { display: none !important; }
   main.wrap > p:not(.lead), main.wrap > ul { display: none; }
   .card, .result { border: 1px solid #ccc; background: #fff !important; backdrop-filter: none; }
