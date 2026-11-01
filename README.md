@@ -43,6 +43,15 @@ python3 -m http.server 8000
 3. **Аналитика.** Яндекс Метрика подключена (счётчик 113981008), отчёты на metrika.yandex.ru.
 4. **SEO.** Замените `poschitay24.ru` в `robots.txt` и `sitemap.xml`. Добавьте сайт в Яндекс Вебмастер и Google Search Console.
 
+## Обратная связь и донаты
+Страницы `feedback.html` и `donate.html`, ссылки на них есть в подвале и под каждым калькулятором.
+Настройки — в `assets/app.js` → `CONFIG.contact` и `CONFIG.donate`. Пока поля пустые, на страницах показаны аккуратные заглушки.
+
+- **Яндекс Форма** (рекомендуется): forms.yandex.ru → создать форму → «Опубликовать» → скопировать ссылку в `contact.yandexForm`. Ответы приходят на почту.
+- **Почта / Telegram**: `contact.email`, `contact.telegram` — форма на сайте откроет почтовое приложение с готовым письмом.
+- **ЮMoney**: номер кошелька в `donate.yoomoney` — появится выбор суммы и оплата картой.
+- **CloudTips** (Т-Банк) или **Boosty**: ссылки в `donate.cloudtips`, `donate.boosty`.
+
 ## Публикация
 Сайт публикуется на GitHub Pages автоматически при каждом изменении в ветке `main`
 (`.github/workflows/pages.yml`).

@@ -35,6 +35,18 @@ const CONFIG = {
     alimony:   { text: "Консультация семейного юриста онлайн", url: "", note: "Партнёрская ссылка на юридический сервис" },
     property:  { text: "Ипотека: сравнить ставки банков", url: "", note: "Партнёрская ссылка на сервис подбора ипотеки" },
   },
+  // Обратная связь. Заполните хотя бы одно поле — блоки на странице feedback.html появятся сами.
+  contact: {
+    yandexForm: "",  // ссылка на Яндекс Форму, например "https://forms.yandex.ru/u/1234567890abcdef/"
+    email: "",       // почта для писем, например "hello@poschitay24.ru"
+    telegram: "",    // ник в Telegram без @, например "poschitay24"
+  },
+  // Донаты. Заполните то, что подключите.
+  donate: {
+    yoomoney: "",    // номер кошелька ЮMoney, например "4100118000000000"
+    cloudtips: "",   // ссылка CloudTips, например "https://pay.cloudtips.ru/p/abcd1234"
+    boosty: "",      // ссылка на Boosty, например "https://boosty.to/poschitay"
+  },
 };
 
 /* ===== Реклама ===== */
@@ -209,3 +221,63 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSearch();
   setupInstallButton();
 });
+
+
+/* ===== Обратная связь и донаты ===== */
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function setupFeedback() {
+  const box = document.getElementById("feedback-box");
+  if (!box) return;
+  const c = CONFIG.contact;
+  const direct = [];
+  if (c.email) direct.push(`<a href="mailto:${esc(c.email)}">✉️ ${esc(c.email)}</a>`);
+  if (c.telegram) direct.push(`<a href="https://t.me/${esc(c.telegram)}" target="_blank" rel="noopener">💬 Telegram @${esc(c.telegram)}</a>`);
+  document.getElementById("direct-contacts").innerHTML = direct.length
+    ? "Или напишите напрямую: " + direct.join(" · ") : "";
+
+  if (c.yandexForm) {
+    const url = c.yandexForm + (c.yandexForm.includes("?") ? "&" : "?") + "iframe=1&page=" + encodeURIComponent(document.referrer || location.href);
+    box.innerHTML = `<iframe src="${esc(url)}" title="Форма обратной связи" style="width:100%;min-height:620px;border:0" loading="lazy"></iframe>`;
+    return;
+  }
+  const form = document.getElementById("fb-form");
+  if (!c.email) {
+    form.querySelector("button").disabled = true;
+    document.getElementById("fb-note").textContent = "Форма скоро заработает. Владелец сайта ещё не подключил приём сообщений.";
+  }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!c.email) return;
+    const f = new FormData(form);
+    const body = `${f.get("msg")}\n\n---\nИмя: ${f.get("name") || "-"}\nКонтакт для ответа: ${f.get("reply") || "-"}\nСтраница: ${document.referrer || "-"}`;
+    location.href = `mailto:${c.email}?subject=${encodeURIComponent("Посчитай: " + f.get("type"))}&body=${encodeURIComponent(body)}`;
+    document.getElementById("fb-note").textContent = "Откроется ваше почтовое приложение с готовым письмом — нажмите «Отправить». Спасибо!";
+  });
+}
+
+function setupDonate() {
+  const box = document.getElementById("donate-box");
+  if (!box) return;
+  const d = CONFIG.donate;
+  const parts = [];
+  if (d.yoomoney) {
+    parts.push(`<form method="POST" action="https://yoomoney.ru/quickpay/confirm" target="_blank" class="card donate-yoo">
+      <b>Картой или через ЮMoney</b>
+      <input type="hidden" name="receiver" value="${esc(d.yoomoney)}">
+      <input type="hidden" name="quickpay-form" value="button">
+      <input type="hidden" name="label" value="donate-poschitay24">
+      <input type="hidden" name="paymentType" value="AC">
+      <div class="chips">
+        ${[100, 300, 500, 1000].map((v, i) => `<label class="chip"><input type="radio" name="sum" value="${v}" ${i === 1 ? "checked" : ""}> ${v} ₽</label>`).join("")}
+      </div>
+      <button type="submit" class="btn">☕ Поддержать</button>
+    </form>`);
+  }
+  if (d.cloudtips) parts.push(`<a class="btn" href="${esc(d.cloudtips)}" target="_blank" rel="noopener">💳 Чаевые через CloudTips</a>`);
+  if (d.boosty) parts.push(`<a class="btn btn-light" href="${esc(d.boosty)}" target="_blank" rel="noopener">⭐ Подписка на Boosty</a>`);
+  box.innerHTML = parts.length ? parts.join("\n")
+    : '<div class="ad-placeholder">Способы поддержки скоро появятся. Спасибо, что заглянули!</div>';
+}
+
+document.addEventListener("DOMContentLoaded", () => { setupFeedback(); setupDonate(); });
