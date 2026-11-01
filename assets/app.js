@@ -476,6 +476,9 @@ function setupPalette() {
     inline.addEventListener("focus", show);
     inline.addEventListener("blur", () => setTimeout(() => sug.classList.remove("show"), 160));
     keyNav(inline, sug);
+    // poschitay24.ru/?q=ипотека — сразу показать подходящие калькуляторы
+    const q0 = new URLSearchParams(location.search).get("q");
+    if (q0) { inline.value = q0; inline.focus(); show(); }
   }
 }
 
