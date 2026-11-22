@@ -4,10 +4,6 @@ on:
   schedule:
     - cron: '23 2 * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/calculator-farm.yml'
 
 permissions:
   contents: read
@@ -87,7 +83,11 @@ jobs:
           git add -- "$SLUG.html" index.html assets/app.js sitemap.xml sw.js
           git commit -m "Опубликовать калькулятор: $SLUG"
           git push origin HEAD:refs/heads/main
-          gh workflow run pages.yml --ref main
+          for attempt in 1 2 3; do
+            if gh workflow run pages.yml --ref main; then break; fi
+            if [[ "$attempt" == 3 ]]; then exit 1; fi
+            sleep 5
+          done
           echo "Публикация запущена для $SLUG." >> "$GITHUB_STEP_SUMMARY"
       - name: Сохранить проверенный черновик
         if: steps.calc.outputs.slug != '' && steps.calc.outputs.vetted != 'true'

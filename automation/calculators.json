@@ -37,7 +37,8 @@
     "checks": [
       {"values": {"area": 60, "coverage": 25, "reserve": 10}, "expected": 3},
       {"values": {"area": 50, "coverage": 25, "reserve": 0}, "expected": 2},
-      {"values": {"area": 50, "coverage": 25, "reserve": 1}, "expected": 3}
+      {"values": {"area": 50, "coverage": 25, "reserve": 1}, "expected": 3},
+      {"values": {"area": 2.1, "coverage": 0.3, "reserve": 0}, "expected": 7}
     ],
     "related": ["oboi", "gruntovka"]
   },

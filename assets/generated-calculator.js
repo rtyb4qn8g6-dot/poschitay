@@ -5,7 +5,13 @@ const binary = {
   "*": (a, b) => a * b, "/": (a, b) => a / b,
   min: Math.min, max: Math.max
 };
-const unary = { ceil: Math.ceil, floor: Math.floor };
+function roundUp(value) {
+  const nearest = Math.round(value);
+  const tolerance = Number.EPSILON * Math.max(1, Math.abs(value)) * 4;
+  if (nearest > 0 && Math.abs(value - nearest) <= tolerance) return nearest;
+  return Math.ceil(value);
+}
+const unary = { ceil: roundUp, floor: Math.floor };
 
 function evaluateFormula(tokens, values) {
   const stack = [];
