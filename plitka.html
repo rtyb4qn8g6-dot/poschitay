@@ -145,12 +145,15 @@ autoCalc("f", () => {
   const count = Math.ceil(area / tileArea * (1 + num("res") / 100));
   const perBox = Math.floor(num("box"));
   const glue = area * 5;
+  const offerParams = new URLSearchParams({area: Number(area.toFixed(6)), res: num("res"), joint: num("joint"), tw1: num("tw"), th1: num("th")});
+  if (perBox > 0) offerParams.set("box1", perBox);
   out.innerHTML = `Нужно плитки: <div class="big">${fmt(count)} шт.</div>
     <ul>
       <li>Площадь облицовки: ${fmt(area, 2)} м²</li>
       ${perBox > 0 ? `<li>Коробок к покупке: <b>${fmt(Math.ceil(count / perBox))}</b> (всего ${fmt(Math.ceil(count / perBox) * perBox)} шт.)</li>` : ""}
       <li>Клей: ~${fmt(glue)} кг (≈ ${Math.ceil(glue / 25)} мешк. по 25 кг)</li>
-    </ul>`;
+    </ul>
+    <p><a href="sravnit-plitku?${offerParams}">Сравнить два предложения плитки с доставкой</a></p>`;
 });
 </script>
 </body>

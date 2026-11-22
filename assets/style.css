@@ -469,3 +469,5 @@ input[type="date"], input[type="time"] {
 }
 input[type="date"]::-webkit-date-and-time-value, input[type="time"]::-webkit-date-and-time-value { text-align: left; }
 select { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+
+.grid > .estimate-section { grid-column: 1 / -1; margin: 12px 0 0; font-size: 1.1rem; }
