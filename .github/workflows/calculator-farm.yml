@@ -1,0 +1,93 @@
+name: Калькуляторы и проверка сайта
+
+on:
+  schedule:
+    - cron: '23 2 * * 2,5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/calculator-farm.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: calculator-farm
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+      - name: Проверить текущий каталог
+        run: |
+          node automation/audit.cjs
+          node automation/prepare.cjs --check
+          node --test tests/*.test.cjs
+      - name: Проверить черновики и очередь
+        id: queue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          active=$(gh pr list --state open --json headRefName --jq 'any(.[]; .headRefName | startswith("calc-draft/"))')
+          echo "active=$active" >> "$GITHUB_OUTPUT"
+          git ls-remote --heads origin 'refs/heads/calc-draft/*' |
+            awk '{sub("refs/heads/calc-draft/", "", $2); print $2}' |
+            paste -sd ' ' - | sed 's/^/PROPOSED_SLUGS=/' >> "$GITHUB_ENV"
+          if [ "$active" = true ]; then
+            echo 'Открыт черновик предыдущего калькулятора.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Запустить локальную модель
+        if: steps.queue.outputs.active != 'true'
+        id: model
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          set -euo pipefail
+          docker run -d --name calc-model -p 127.0.0.1:11434:11434 ollama/ollama:0.6.8@sha256:50ab2378567a62b811a2967759dd91f254864c3495cbe50576bd8a85bc6edd56
+          for n in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:11434/api/tags >/dev/null; then break; fi
+            sleep 2
+          done
+          docker exec calc-model ollama pull qwen2.5:1.5b
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Сгенерировать и проверить калькулятор
+        if: steps.queue.outputs.active != 'true'
+        id: calc
+        env:
+          MODEL_READY: ${{ steps.model.outputs.ready }}
+        run: |
+          node automation/prepare.cjs
+          node automation/audit.cjs
+          node --test tests/*.test.cjs
+          git diff --check
+      - name: Сохранить проверенный черновик
+        if: steps.calc.outputs.slug != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ steps.calc.outputs.slug }}
+          TITLE: ${{ steps.calc.outputs.title }}
+        run: |
+          set -euo pipefail
+          branch="calc-draft/$SLUG"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add -- "$SLUG.html" index.html assets/app.js sitemap.xml sw.js
+          git commit -m "Черновик калькулятора: $SLUG"
+          git push origin "HEAD:refs/heads/$branch"
+          link="https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1"
+          if gh pr create --draft --base main --head "$branch" --title "$TITLE" \
+            --body "Калькулятор подготовлен по расписанию. Контрольные примеры и тесты пройдены. Перед публикацией проверьте формулу, допущения и мобильный вид."; then
+            echo "Черновик PR открыт для $SLUG." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Черновик сохранён в ветке. [Открыть PR]($link)." >> "$GITHUB_STEP_SUMMARY"
+          fi

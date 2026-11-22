@@ -1,0 +1,13 @@
+"use strict";
+const fs = require("node:fs");
+const assert = require("node:assert/strict");
+const sitemap = fs.readFileSync("sitemap.xml", "utf8");
+const home = fs.readFileSync("index.html", "utf8");
+const code = fs.readFileSync("assets/app.js", "utf8");
+const links = Array.from(sitemap.matchAll(/<loc>https:\/\/poschitay24\.ru\/([^<]*)<\/loc>/g), ([, path]) => path);
+assert(links.length && new Set(links).size === links.length, "В sitemap есть дубли или нет ссылок");
+for (const path of links) assert(fs.existsSync(path ? path + ".html" : "index.html"), "В sitemap нет страницы: " + path);
+const entries = code.split("const CALCS = [")[1].split("\n];")[0];
+const count = (entries.match(/^\s*\[/gm) || []).length;
+assert(home.includes(`data-count="${count}">${count}<`), "Счётчик не совпадает с каталогом");
+console.log(`Проверены ${links.length} адресов в sitemap и счётчик ${count} калькуляторов.`);
