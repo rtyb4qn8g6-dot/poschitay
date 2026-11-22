@@ -1,9 +1,9 @@
 // Кэш для работы калькуляторов без интернета. При изменении файлов увеличьте версию.
-const CACHE = "poschitay-v24";
+const CACHE = "poschitay-v25";
 const FILES = [
   "./", "index.html", "plitka", "oboi", "laminat", "kraska", "shtukaturka", "beton", "kirpich", "gazobeton", "uteplitel", "ipoteka", "kredit", "vklad", "ndfl", "otpusknye", "bolnichnyy", "nalogovyy-vychet", "alimenty", "samozanyatye", "nalogi-ip-usn", "zhizn-v-cifrah", "nastoyashchaya-cena", "finansovaya-svoboda", "procenty", "slozhnaya-ploshchad", "svp", "gruntovka", "zatirka", "epoksidnaya-smola", "zaryadka-elektromobilya", "filament", "probeg-krossovok", "obnimashki", "procent-zhira", "pulsovye-zony", "temp-bega", "shagi", "kogda-pohudeyu", "ovulyaciya", "recept-porcii", "zapekanie", "drobi", "proporcii", "kvadratnye-uravneniya", "ploshchad-figur", "rimskie-cifry", "sistemy-schisleniya", "skorost-vremya", "obligacii", "dividendy", "zabor", "styazhka", "krovlya", "teplyy-pol", "radiatory", "lestnica", "drova", "basseyn", "gazon", "stoimost-pitomca", "filmy-i-knigi", "brosit-kurit", "kofein", "taksi-ili-mashina", "vladenie-avto", "elektromobil", "zhrebiy", "stoimost-sotrudnika", "refinansirovanie", "picca", "stoimost-rebenka", "shashlyk", "gramm-v-lozhke", "dosrochnoe-pogashenie", "nds", "arenda-ili-ipoteka", "kondicioner", "promille", "shiny", "slozhnyy-procent", "inflyaciya", "kreditnaya-nagruzka", "transportnyy-nalog", "vozrast", "perevod-edinic", "kommunalka", "razdelit-schet", "son", "vozrast-pitomca", "imt", "kalorii", "norma-vody", "beremennost", "rashod-topliva", "stoimost-poezdki", "elektrichestvo", "ploshchad", "dni-mezhdu-datami", "obratnaya-svyaz", "podderzhat",
   "sravnit-plitku", "raskroy-linoleuma", "gipsokarton-peregorodka", "plenka-fasady", "stenovye-paneli", "gidroizolyaciya", "terrasnaya-doska", "grunt-gryadki", "sravnit-upakovki", "korobki-pereezd", "semejnyj-tarif", "cena-zakaza-3d",
-  "assets/purchase-calcs.js", "assets/style.css", "assets/app.js", "assets/icon.svg", "assets/icon-180.png", "assets/icon-192.png", "assets/icon-512.png", "manifest.webmanifest",
+  "assets/price-duel.js", "assets/purchase-calcs.js", "assets/style.css", "assets/app.js", "assets/icon.svg", "assets/icon-180.png", "assets/icon-192.png", "assets/icon-512.png", "manifest.webmanifest",
 ];
 
 self.addEventListener("install", (e) => {
