@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расход уплотнителя для двери | Посчитай</title>
+  <meta name="description" content="Посчитайте количество рулонов дверного уплотнителя по длине оклеиваемых сторон и запасу на подрезку.">
+  <link rel="canonical" href="https://poschitay24.ru/uplotnitel-dlya-dveri">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🚪</div><div><h1>Расход уплотнителя для двери</h1><p class="lead">Посчитайте количество рулонов дверного уплотнителя по длине оклеиваемых сторон и запасу на подрезку.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="height">Средняя длина одной боковой стороны, м</label><input id="height" inputmode="decimal" data-lower="0.1" data-upper="10" value="2"></div>
+    <div><label for="top">Длина верхней стороны, м</label><input id="top" inputmode="decimal" data-lower="0.1" data-upper="10" value="0.8"></div>
+    <div><label for="bottom">Длина нижней стороны, м (0, если без уплотнения)</label><input id="bottom" inputmode="decimal" data-lower="0" data-upper="10" value="0"></div>
+    <div><label for="reserve">Запас на подрезку, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+    <div><label for="roll">Длина уплотнителя в рулоне, м</label><input id="roll" inputmode="decimal" data-lower="0.1" data-upper="100" value="5"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Сложите длины двух боковых сторон и верхней стороны. Если уплотнитель будет и снизу, добавьте длину нижней стороны. Прибавьте запас и округлите число рулонов вверх. Это оценка по общему метражу. Если каждый отрезок должен быть цельным, отдельно проверьте, помещаются ли нужные отрезки в рулоны без стыков.</p>
+  <h2>Пример расчёта</h2>
+  <p>Средняя длина одной боковой стороны, м — 2 · Длина верхней стороны, м — 0,8 · Длина нижней стороны, м (0, если без уплотнения) — 0 · Запас на подрезку, % — 10 · Длина уплотнителя в рулоне, м — 5. Результат — <strong>2 рул.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="smeta-remonta"><span class="ico">🧾</span><b>Смета ремонта</b></a>
+<a class="tile" href="uteplitel"><span class="ico">🧶</span><b>Утеплитель</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"рул.","expression":["height","2","*","top","+","bottom","+","reserve","100","/","1","+","*","roll","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

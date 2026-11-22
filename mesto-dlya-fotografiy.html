@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сколько фотографий поместится на карту памяти | Посчитай</title>
+  <meta name="description" content="Посчитайте число снимков по свободному месту, среднему размеру фотографии и запасу.">
+  <link rel="canonical" href="https://poschitay24.ru/mesto-dlya-fotografiy">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#den">Дом и каждый день</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#den">Дом и каждый день</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">📷</div><div><h1>Сколько фотографий поместится на карту памяти</h1><p class="lead">Посчитайте число снимков по свободному месту, среднему размеру фотографии и запасу.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="space">Свободное место, ГБ</label><input id="space" inputmode="decimal" data-lower="0.001" data-upper="100000" value="28"></div>
+    <div><label for="photo">Средний размер снимка, МБ</label><input id="photo" inputmode="decimal" data-lower="0.01" data-upper="100000" value="7"></div>
+    <div><label for="reserve">Доля места, которую оставляем свободной, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Переведите свободные десятичные гигабайты в мегабайты, вычтите процент запаса и разделите на средний размер файла. Округление вниз даёт число целых файлов. Реальный размер снимка зависит от формата и сцены.</p>
+  <h2>Пример расчёта</h2>
+  <p>Свободное место, ГБ — 28 · Средний размер снимка, МБ — 7 · Доля места, которую оставляем свободной, % — 10. Результат — <strong>3 600 снимков</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="procenty"><span class="ico">💯</span><b>Проценты</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"снимков","expression":["space","1000","*","1","reserve","100","/","-","*","photo","/","floor"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Мульча для клумбы | Посчитай</title>
+  <meta name="description" content="Узнайте, сколько мешков коры или щепы понадобится для мульчирования клумбы.">
+  <link rel="canonical" href="https://poschitay24.ru/mulcha-dlya-klumby">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🍂</div><div><h1>Мульча для клумбы</h1><p class="lead">Узнайте, сколько мешков коры или щепы понадобится для мульчирования клумбы.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="area">Площадь покрытия, м²</label><input id="area" inputmode="decimal" data-lower="0.1" data-upper="10000" value="12"></div>
+    <div><label for="depth">Толщина слоя, см</label><input id="depth" inputmode="decimal" data-lower="0.1" data-upper="100" value="5"></div>
+    <div><label for="bag">Объём одного мешка, л</label><input id="bag" inputmode="decimal" data-lower="1" data-upper="1000" value="60"></div>
+    <div><label for="reserve">Запас, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Слой толщиной 1 см на 1 м² занимает 10 л. Умножьте площадь на толщину и на 10, прибавьте запас и округлите число мешков вверх. Используйте площадь только тех участков, где будет мульча, и объём мешка с этикетки. Толщину покрытия задайте самостоятельно.</p>
+  <h2>Пример расчёта</h2>
+  <p>Площадь покрытия, м² — 12 · Толщина слоя, см — 5 · Объём одного мешка, л — 60 · Запас, % — 10. Результат — <strong>11 меш.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="grunt-gryadki"><span class="ico">🌿</span><b>Грунт для грядок</b></a>
+<a class="tile" href="gazon"><span class="ico">🌱</span><b>Газон</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"меш.","expression":["area","depth","*","10","*","reserve","100","/","1","+","*","bag","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

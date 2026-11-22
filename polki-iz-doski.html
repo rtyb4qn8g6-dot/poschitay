@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сколько полок выйдет из доски | Посчитай</title>
+  <meta name="description" content="Рассчитайте число полок одной длины, которые можно нарезать из одной доски с учётом пропила.">
+  <link rel="canonical" href="https://poschitay24.ru/polki-iz-doski">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🪵</div><div><h1>Сколько полок выйдет из доски</h1><p class="lead">Рассчитайте число полок одной длины, которые можно нарезать из одной доски с учётом пропила.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="board">Полезная длина доски без дефектных краёв, мм</label><input id="board" inputmode="decimal" data-lower="10" data-upper="20000" value="2400"></div>
+    <div><label for="shelf">Длина одной полки, мм</label><input id="shelf" inputmode="decimal" data-lower="10" data-upper="20000" value="550"></div>
+    <div><label for="cut">Ширина пропила, мм</label><input id="cut" inputmode="decimal" data-lower="0" data-upper="20" value="3"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Для последовательных одинаковых отрезков учитывается пропил между деталями. К длине доски прибавьте ширину пропила, разделите на длину полки с одним пропилом и округлите вниз. Ширину и толщину доски проверьте отдельно. Если торцы надо подровнять или обойти дефект, заранее вычтите этот участок из полезной длины.</p>
+  <h2>Пример расчёта</h2>
+  <p>Полезная длина доски без дефектных краёв, мм — 2 400 · Длина одной полки, мм — 550 · Ширина пропила, мм — 3. Результат — <strong>4 шт.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="smeta-remonta"><span class="ico">🧾</span><b>Смета ремонта</b></a>
+<a class="tile" href="slozhnaya-ploshchad"><span class="ico">📐</span><b>Площадь сложной формы</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"шт.","expression":["board","cut","+","shelf","cut","+","/","floor"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

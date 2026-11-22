@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расход герметика на швы | Посчитай</title>
+  <meta name="description" content="Рассчитайте число картриджей герметика по длине швов, ширине, глубине и объёму упаковки.">
+  <link rel="canonical" href="https://poschitay24.ru/germetik-na-shvy">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🛁</div><div><h1>Расход герметика на швы</h1><p class="lead">Рассчитайте число картриджей герметика по длине швов, ширине, глубине и объёму упаковки.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Общая длина швов, м</label><input id="length" inputmode="decimal" data-lower="0.1" data-upper="10000" value="25"></div>
+    <div><label for="width">Ширина шва, мм</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="100" value="6"></div>
+    <div><label for="depth">Глубина заполнения, мм</label><input id="depth" inputmode="decimal" data-lower="0.1" data-upper="100" value="4"></div>
+    <div><label for="tube">Объём картриджа, мл</label><input id="tube" inputmode="decimal" data-lower="1" data-upper="2000" value="300"></div>
+    <div><label for="reserve">Запас, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Для шва прямоугольного сечения длину в метрах умножьте на ширину и глубину в миллиметрах. Результат получается в миллилитрах. Прибавьте запас, разделите на объём картриджа и округлите вверх. Для швов разных размеров суммируйте объёмы до округления. Допустимые ширину и глубину шва уточняйте в инструкции к выбранному герметику.</p>
+  <h2>Пример расчёта</h2>
+  <p>Общая длина швов, м — 25 · Ширина шва, мм — 6 · Глубина заполнения, мм — 4 · Объём картриджа, мл — 300 · Запас, % — 10. Результат — <strong>3 картр.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="remont-vannoy"><span class="ico">🛁</span><b>Ремонт ванной целиком</b></a>
+<a class="tile" href="zatirka"><span class="ico">🧽</span><b>Затирка для швов</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"картр.","expression":["length","width","*","depth","*","reserve","100","/","1","+","*","tube","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Время скачивания файла | Посчитай</title>
+  <meta name="description" content="Узнайте, сколько минут займёт скачивание файла по его размеру и скорости интернета.">
+  <link rel="canonical" href="https://poschitay24.ru/vremya-skachivaniya">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#den">Дом и каждый день</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#den">Дом и каждый день</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">📥</div><div><h1>Время скачивания файла</h1><p class="lead">Узнайте, сколько минут займёт скачивание файла по его размеру и скорости интернета.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="size">Размер файла, ГБ</label><input id="size" inputmode="decimal" data-lower="0.001" data-upper="100000" value="12"></div>
+    <div><label for="speed">Измеренная скорость, Мбит/с</label><input id="speed" inputmode="decimal" data-lower="0.01" data-upper="100000" value="50"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>В десятичном гигабайте 8 000 мегабит. Разделите объём в мегабитах на измеренную скорость, а затем на 60. Расчёт предполагает постоянную скорость и не учитывает паузы.</p>
+  <h2>Пример расчёта</h2>
+  <p>Размер файла, ГБ — 12 · Измеренная скорость, Мбит/с — 50. Результат — <strong>32 мин</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="skorost-vremya"><span class="ico">🚀</span><b>Скорость, время, расстояние</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"мин","expression":["size","8000","*","speed","/","60","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кассеты для рассады | Посчитай</title>
+  <meta name="description" content="Узнайте, сколько кассет одинакового размера понадобится для запланированного числа растений.">
+  <link rel="canonical" href="https://poschitay24.ru/rassada-v-kassetah">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🌱</div><div><h1>Кассеты для рассады</h1><p class="lead">Узнайте, сколько кассет одинакового размера понадобится для запланированного числа растений.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="plants">Сколько растений нужно</label><input id="plants" inputmode="decimal" data-lower="1" data-upper="100000" value="70"></div>
+    <div><label for="cells">Число ячеек в кассете</label><input id="cells" inputmode="decimal" data-lower="1" data-upper="10000" value="24"></div>
+    <div><label for="reserve">Запас ячеек, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="15"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте планируемое число растений на коэффициент запаса, разделите на число ячеек в кассете и округлите вверх. Расчёт предполагает одно растение в ячейке. Запас выражает количество дополнительных ячеек и не предсказывает всхожесть семян. Для разных культур можно сделать отдельные расчёты.</p>
+  <h2>Пример расчёта</h2>
+  <p>Сколько растений нужно — 70 · Число ячеек в кассете — 24 · Запас ячеек, % — 15. Результат — <strong>4 касс.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="grunt-gryadki"><span class="ico">🌿</span><b>Грунт для грядок</b></a>
+<a class="tile" href="gazon"><span class="ico">🌱</span><b>Газон</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"касс.","expression":["plants","reserve","100","/","1","+","*","cells","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

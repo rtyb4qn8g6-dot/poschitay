@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расход ткани на шторы | Посчитай</title>
+  <meta name="description" content="Посчитайте метраж рулонной ткани для прямых штор с учётом сборки, ширины полотна и припусков по высоте.">
+  <link rel="canonical" href="https://poschitay24.ru/tkan-dlya-shtor">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🪟</div><div><h1>Расход ткани на шторы</h1><p class="lead">Посчитайте метраж рулонной ткани для прямых штор с учётом сборки, ширины полотна и припусков по высоте.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="rail">Ширина карниза, м</label><input id="rail" inputmode="decimal" data-lower="0.1" data-upper="20" value="3"></div>
+    <div><label for="gather">Коэффициент сборки</label><input id="gather" inputmode="decimal" data-lower="1" data-upper="4" value="2"></div>
+    <div><label for="width">Полезная ширина ткани после боковых припусков, м</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="5" value="1.4"></div>
+    <div><label for="height">Готовая высота шторы, м</label><input id="height" inputmode="decimal" data-lower="0.1" data-upper="10" value="2.5"></div>
+    <div><label for="hem">Суммарный припуск сверху и снизу, м</label><input id="hem" inputmode="decimal" data-lower="0" data-upper="2" value="0.2"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте длину карниза на коэффициент сборки, разделите на полезную ширину ткани и округлите число вертикальных полотен вверх. Для каждого полотна возьмите готовую высоту и припуски. Для сшивания нескольких полотен заранее вычтите из их ширины припуски на швы. Расчёт не учитывает подгонку рисунка и усадку. Если две шторы нужно кроить отдельно, посчитайте каждую отдельно.</p>
+  <h2>Пример расчёта</h2>
+  <p>Ширина карниза, м — 3 · Коэффициент сборки — 2 · Полезная ширина ткани после боковых припусков, м — 1,4 · Готовая высота шторы, м — 2,5 · Суммарный припуск сверху и снизу, м — 0,2. Результат — <strong>13,5 м</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="ploshchad"><span class="ico">📐</span><b>Площадь комнаты</b></a>
+<a class="tile" href="smeta-remonta"><span class="ico">🧾</span><b>Смета ремонта</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"м","expression":["rail","gather","*","width","/","ceil","height","hem","+","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

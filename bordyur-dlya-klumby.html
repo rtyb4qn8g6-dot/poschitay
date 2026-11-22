@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Садовый бордюр для клумбы | Посчитай</title>
+  <meta name="description" content="Рассчитайте количество бордюрных элементов для прямоугольной клумбы по наружному периметру.">
+  <link rel="canonical" href="https://poschitay24.ru/bordyur-dlya-klumby">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🌿</div><div><h1>Садовый бордюр для клумбы</h1><p class="lead">Рассчитайте количество бордюрных элементов для прямоугольной клумбы по наружному периметру.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Длина клумбы, м</label><input id="length" inputmode="decimal" data-lower="0.1" data-upper="500" value="4"></div>
+    <div><label for="width">Ширина клумбы, м</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="500" value="2.5"></div>
+    <div><label for="opening">Участок без бордюра, м</label><input id="opening" inputmode="decimal" data-lower="0" data-upper="500" value="1"></div>
+    <div><label for="piece">Рабочая длина элемента, м</label><input id="piece" inputmode="decimal" data-lower="0.05" data-upper="15" value="0.5"></div>
+    <div><label for="reserve">Запас на подрезку, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Сложите длину и ширину клумбы и умножьте на два. Вычтите участки без бордюра, прибавьте запас и разделите на рабочую длину элемента. Результат округляется вверх. При открытом периметре или обязательных цельных элементах на каждой стороне отдельно проверьте раскладку по сторонам.</p>
+  <h2>Пример расчёта</h2>
+  <p>Длина клумбы, м — 4 · Ширина клумбы, м — 2,5 · Участок без бордюра, м — 1 · Рабочая длина элемента, м — 0,5 · Запас на подрезку, % — 10. Результат — <strong>27 шт.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="grunt-gryadki"><span class="ico">🌿</span><b>Грунт для грядок</b></a>
+<a class="tile" href="zabor"><span class="ico">🚧</span><b>Забор из профнастила</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"шт.","expression":["length","width","+","2","*","opening","-","0","max","reserve","100","/","1","+","*","piece","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

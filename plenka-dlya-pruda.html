@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Плёнка для прямоугольного пруда | Посчитай</title>
+  <meta name="description" content="Посчитайте площадь цельного полотна для прямоугольного пруда с припуском на глубину и крепление по краям.">
+  <link rel="canonical" href="https://poschitay24.ru/plenka-dlya-pruda">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🌊</div><div><h1>Плёнка для прямоугольного пруда</h1><p class="lead">Посчитайте площадь цельного полотна для прямоугольного пруда с припуском на глубину и крепление по краям.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Длина пруда по верху, м</label><input id="length" inputmode="decimal" data-lower="0.1" data-upper="100" value="4"></div>
+    <div><label for="width">Ширина пруда по верху, м</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="100" value="3"></div>
+    <div><label for="depth">Максимальная глубина, м</label><input id="depth" inputmode="decimal" data-lower="0.05" data-upper="10" value="0.8"></div>
+    <div><label for="edge">Припуск на крепление с каждой стороны, м</label><input id="edge" inputmode="decimal" data-lower="0" data-upper="10" value="0.5"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>К длине и ширине по верху прибавьте две глубины и два припуска на крепление. Перемножьте получившиеся размеры. Помимо площади проверьте, что полотно нужной длины и ширины есть в продаже. Для чаши с уступами или сложным контуром снимите размеры гибкой лентой по дну и стенкам.</p>
+  <h2>Пример расчёта</h2>
+  <p>Длина пруда по верху, м — 4 · Ширина пруда по верху, м — 3 · Максимальная глубина, м — 0,8 · Припуск на крепление с каждой стороны, м — 0,5. Результат — <strong>36,96 м²</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="basseyn"><span class="ico">🏊</span><b>Бассейн</b></a>
+<a class="tile" href="ploshchad"><span class="ico">📐</span><b>Площадь комнаты</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"м²","expression":["length","depth","2","*","+","edge","2","*","+","width","depth","2","*","+","edge","2","*","+","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

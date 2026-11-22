@@ -3,7 +3,22 @@ const fs = require("node:fs");
 const evaluate = require("../assets/generated-calculator.js");
 const assert = require("node:assert/strict");
 
-const queue = JSON.parse(fs.readFileSync("automation/calculators.json"));
+const sections = {
+  den: { name: "Дом и каждый день", first: '  <a class="tile" href="perevod-edinic"' },
+  remont: { name: "Ремонт и стройка", first: '  <a class="tile wow" href="remont-vannoy"' },
+  kuhnya: { name: "Кухня", first: '  <a class="tile" href="recept-porcii"' },
+  avto: { name: "Авто и поездки", first: '  <a class="tile" href="rashod-topliva"' }
+};
+const queues = [
+  ["calculators.json", "remont"], ["batch-remont.json", "remont"],
+  ["batch-kuhnya.json", "kuhnya"], ["batch-poezdki.json", "avto"], ["batch-cifry.json", "den"]
+];
+const queue = queues.flatMap(([file, section]) => {
+  const path = "automation/" + file;
+  return fs.existsSync(path)
+    ? JSON.parse(fs.readFileSync(path)).map((spec) => ({ ...spec, section }))
+    : [];
+});
 const source = fs.readFileSync("assets/app.js", "utf8");
 const rawCatalogue = source.split("const CALCS = [")[1].split("\n];")[0];
 const catalogue = new Map(Array.from(rawCatalogue.matchAll(/^\s*\["([^"]+)", "([^"]+)", "([a-z0-9-]+)",/gm),
@@ -22,10 +37,11 @@ function validate(spec) {
   }
   assert(Array.isArray(fields) && fields.length >= 2 && fields.length <= 7);
   const ids = new Set();
-  for (const { id, label, min, max, value } of fields) {
+  for (const { id, label, min, max, value, integer } of fields) {
     assert(typeof id === "string" && fieldPattern.test(id) && !["f", "out", "constructor", "prototype"].includes(id) && !ids.has(id));
     assert(typeof label === "string" && label.trim() && label.length <= 96 && !/[\r\n]/.test(label));
     assert([min, max, value].every(Number.isFinite) && min >= 0 && min < max && max <= 1e8 && min <= value && value <= max);
+    assert(integer === undefined || typeof integer === "boolean" && (!integer || [min, max, value].every(Number.isInteger)));
     ids.add(id);
   }
   assert(Array.isArray(expression) && expression.length <= 60 && expression.every((token) => typeof token === "string" && token.length <= 32));
@@ -34,7 +50,7 @@ function validate(spec) {
   assert(Array.isArray(related) && related.length <= 4 && related.every((id) => catalogue.has(id)));
   for (const { values, expected } of checks) {
     assert(Object.keys(values).length === ids.size && Number.isFinite(expected) && expected >= 0);
-    for (const { id, min, max } of fields) assert(Number.isFinite(values[id]) && min <= values[id] && values[id] <= max);
+    for (const { id, min, max, integer } of fields) assert(Number.isFinite(values[id]) && min <= values[id] && values[id] <= max && (!integer || Number.isInteger(values[id])));
     assert(Math.abs(evaluate(expression, values) - expected) <= Math.max(1, Math.abs(expected)) * 1e-9, "Контрольный пример не сошёлся");
   }
   const defaultResult = evaluate(expression, Object.fromEntries(fields.map(({ id, value }) => [id, value])));
@@ -63,13 +79,18 @@ function insert(file, marker, line) {
 }
 
 function render(spec) {
-  const { slug, title, icon, description, explanation, fields, unit, expression, related } = spec;
+  const { slug, title, icon, description, explanation, fields, unit, expression, related, section, checks } = spec;
+  const category = sections[section];
   const link = "https://poschitay24.ru/" + slug;
-  const inputs = fields.map(({ id, label, min, max, value }) =>
-    `    <div><label for="${id}">${escape(label)}</label><input id="${id}" inputmode="decimal" data-lower="${min}" data-upper="${max}" value="${value}"></div>`).join("\n");
+  const inputs = fields.map(({ id, label, min, max, value, integer }) =>
+    `    <div><label for="${id}">${escape(label)}</label><input id="${id}" inputmode="${integer ? "numeric" : "decimal"}" data-lower="${min}" data-upper="${max}" value="${value}"></div>`).join("\n");
   const tile = (id, glyph, name, detail) => `<a class="tile" href="${id}"><span class="ico">${escape(glyph)}</span><b>${escape(name)}</b>${detail ? "<small>" + escape(detail) + "</small>" : ""}</a>`;
   const links = [...new Set(related)].map((id) => tile(id, catalogue.get(id).icon, catalogue.get(id).title));
   const data = JSON.stringify({ unit, expression }).replaceAll("<", "\\u003c");
+  const example = checks[0];
+  const exampleNumber = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 4 });
+  const exampleFields = fields.map(({ id, label }) =>
+    `${escape(label)} — ${exampleNumber.format(example.values[id])}`).join(" · ");
   fs.writeFileSync(slug + ".html", `<!doctype html>
 <html lang="ru">
 <head>
@@ -83,15 +104,17 @@ function render(spec) {
   <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
-<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Все калькуляторы ремонта</a></div></header>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#${section}">${category.name}</a></div></header>
 <main class="wrap">
-  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#${section}">${category.name}</a></div>
   <div class="calc-head"><div class="ic" aria-hidden="true">${escape(icon)}</div><div><h1>${escape(title)}</h1><p class="lead">${escape(description)}</p></div></div>
   <form class="card" id="f"><div class="grid">
 ${inputs}
   </div><div class="result" id="out" aria-live="polite"></div></form>
   <h2>Как считается</h2>
   <p>${escape(explanation)}</p>
+  <h2>Пример расчёта</h2>
+  <p>${exampleFields}. Результат — <strong>${exampleNumber.format(example.expected)} ${escape(unit)}</strong>.</p>
   ${links.length ? '<h2>Связанные калькуляторы</h2>\n  <div class="tiles">' + links.join("\n") + "</div>" : ""}
 </main>
 <script type="application/json" id="calculator-spec">${data}</script>
@@ -101,54 +124,68 @@ ${inputs}
 </body>
 </html>
 `);
+  return { slug, title, icon, description, link, section, tile: tile(slug, icon, title, description) };
+}
+
+function renderBatch(specs) {
+  const pages = specs.map(render);
   const count = (rawCatalogue.match(/^\s*\[/gm) || []).length;
-  insert("index.html", '  <a class="tile wow" href="remont-vannoy"', "  " + tile(slug, icon, title, description) + "\n");
+  const updated = count + pages.length;
+  for (const [section, category] of Object.entries(sections)) {
+    const tiles = pages.filter((page) => page.section === section).map((page) => "  " + page.tile + "\n").join("");
+    if (tiles) insert("index.html", category.first, tiles);
+  }
   const home = fs.readFileSync("index.html", "utf8");
   assert(home.includes(`data-count="${count}">${count}`));
-  fs.writeFileSync("index.html", home.replace(`data-count="${count}">${count}`, `data-count="${count + 1}">${count + 1}`)
-    .replace(`${count} калькуляторов ·`, `${count + 1} калькуляторов ·`));
+  fs.writeFileSync("index.html", home.replace(`data-count="${count}">${count}`, `data-count="${updated}">${updated}`)
+    .replace(`${count} калькуляторов ·`, `${updated} калькуляторов ·`));
   fs.writeFileSync("assets/app.js", source.replace("const CALCS = [\n",
-    "const CALCS = [\n  " + JSON.stringify([icon, title, slug, description]).replaceAll('","', '", "') + ",\n"));
-  insert("sitemap.xml", "</urlset>", `  <url><loc>${link}</loc></url>\n`);
+    "const CALCS = [\n" + pages.map(({ icon, title, slug, description }) =>
+      "  [" + [icon, title, slug, description].map((field) => JSON.stringify(field)).join(", ") + "],\n").join("")));
+  insert("sitemap.xml", "</urlset>", pages.map(({ link }) => `  <url><loc>${link}</loc></url>\n`).join(""));
   const sw = fs.readFileSync("sw.js", "utf8");
   assert(/const CACHE = "poschitay-v\d+";/.test(sw));
   const assets = sw.includes('"assets/generated-calculator.js"') ? "" : ' "assets/generated-calculator.js",';
   fs.writeFileSync("sw.js", sw.replace(/poschitay-v(\d+)/, (_, version) => "poschitay-v" + (Number(version) + 1))
-    .replace("const FILES = [\n", `const FILES = [\n  "${slug}",${assets}\n`));
+    .replace("const FILES = [\n", `const FILES = [\n  ${pages.map(({ slug }) => JSON.stringify(slug)).join(", ")},${assets}\n`));
 }
 
 async function main() {
+  assert(new Set(queue.map(({ slug }) => slug)).size === queue.length, "Дубли адресов в очереди");
   queue.forEach(validate);
+  const available = queue.filter(({ slug }) => !catalogue.has(slug) && !fs.existsSync(slug + ".html"));
+  if (process.argv.includes("--pending")) {
+    console.log(available.length);
+    return;
+  }
   if (process.argv.includes("--check")) {
     console.log("Контрольные примеры прошли: " + queue.reduce((n, s) => n + s.checks.length, 0));
     return;
   }
-  const available = queue.filter(({ slug }) => !catalogue.has(slug) && !fs.existsSync(slug + ".html"));
-  if (!available.length && process.env.DRAFT_ACTIVE === "true") return;
-  let spec = available[0];
-  if (process.env.MODEL_READY === "true") {
-    try {
-      if (available.length) {
-        const choice = await model("Выбери наиболее полезный калькулятор. Верни JSON с полем slug из списка: " +
-          JSON.stringify(available.map(({ slug, title, description }) => ({ slug, title, description }))));
-        spec = available.find(({ slug }) => slug === choice.slug) || spec;
-      } else {
-        const novel = await model("Предложи новый безопасный калькулятор для ремонта или быта. " +
-          "Верни JSON строго по образцу с двумя проверочными примерами и токенами формулы (обратная польская нотация). " +
-          "Формулой могут быть только операции + - * / ceil floor min max. Не используй медицинские, опасные, финансовые или юридические нормы. " +
+  const vetted = available.length > 0;
+  const specs = [...available];
+  if (!vetted && process.env.DRAFT_ACTIVE !== "true" && process.env.MODEL_READY === "true") {
+    for (const topic of ["домашний ремонт", "хранение и организация дома", "еда и покупки без финансовых советов"]) {
+      try {
+        const candidate = await model("Предложи новый бытовой калькулятор по теме: " + topic +
+          ". Верни JSON по образцу. Формула в обратной польской нотации (+ - * / ceil floor min max). " +
+          "Дай два проверочных примера и раскрытые допущения. Не используй медицинские, опасные, финансовые или юридические нормы. " +
           "Не повторяй страницы: " + [...catalogue.keys(), ...proposed].join(", ") + ". Образец: " + JSON.stringify(queue[0]));
-        validate(novel);
-        assert(!exists(novel.slug), "Модель предложила дубликат");
-        spec = novel;
+        validate(candidate);
+        assert(!exists(candidate.slug), "Модель предложила дубликат");
+        specs.push({ ...candidate, section: topic.startsWith("еда") ? "kuhnya" : "remont" });
+        proposed.add(candidate.slug);
+      } catch {
+        console.warn("Модель не вернула подходящую спецификацию по теме: " + topic);
       }
-    } catch {
-      console.warn("Модель не вернула подходящую спецификацию.");
     }
   }
-  if (!spec) return;
-  render(spec);
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `slug=${spec.slug}\ntitle=${spec.title}\nvetted=${available.includes(spec)}\n`);
-  console.log("Подготовлено: " + spec.slug);
+  if (!specs.length) return;
+  renderBatch(specs);
+  const slugs = specs.map(({ slug }) => slug);
+  const output = `slug=${slugs[0]}\nslugs=${slugs.join(" ")}\ncount=${slugs.length}\nvetted=${vetted}\n`;
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, output);
+  console.log("Подготовлено: " + slugs.join(", "));
 }
 
 main().catch((error) => { console.error(error.message); process.exitCode = 1; });

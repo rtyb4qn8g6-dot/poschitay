@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сколько листов бумаги для печати | Посчитай</title>
+  <meta name="description" content="Посчитайте расход бумаги для нескольких экземпляров с односторонней или двусторонней печатью.">
+  <link rel="canonical" href="https://poschitay24.ru/listy-dlya-pechati">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#den">Дом и каждый день</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#den">Дом и каждый день</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">📄</div><div><h1>Сколько листов бумаги для печати</h1><p class="lead">Посчитайте расход бумаги для нескольких экземпляров с односторонней или двусторонней печатью.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="pages">Страниц в одном экземпляре</label><input id="pages" inputmode="numeric" data-lower="1" data-upper="100000" value="31"></div>
+    <div><label for="sides">Сторон печати на листе (1 или 2)</label><input id="sides" inputmode="numeric" data-lower="1" data-upper="2" value="2"></div>
+    <div><label for="copies">Число отдельных экземпляров</label><input id="copies" inputmode="numeric" data-lower="1" data-upper="10000" value="12"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Для каждого экземпляра разделите число страниц на число печатаемых сторон и округлите вверх. Если в двустороннем экземпляре нечётное число страниц, его последний лист используется с одной стороны. Печать нескольких страниц на одной стороне в расчёт не входит.</p>
+  <h2>Пример расчёта</h2>
+  <p>Страниц в одном экземпляре — 31 · Сторон печати на листе (1 или 2) — 2 · Число отдельных экземпляров — 12. Результат — <strong>192 листов</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="drobi"><span class="ico">➗</span><b>Дроби</b></a>
+<a class="tile" href="proporcii"><span class="ico">⚖️</span><b>Пропорции</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"листов","expression":["pages","sides","/","ceil","copies","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

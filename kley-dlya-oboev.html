@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расход клея для обоев | Посчитай</title>
+  <meta name="description" content="Рассчитайте число пачек обойного клея по площади оклейки, расходу с этикетки и запасу.">
+  <link rel="canonical" href="https://poschitay24.ru/kley-dlya-oboev">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🧴</div><div><h1>Расход клея для обоев</h1><p class="lead">Рассчитайте число пачек обойного клея по площади оклейки, расходу с этикетки и запасу.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="area">Чистая площадь оклейки, м²</label><input id="area" inputmode="decimal" data-lower="0.1" data-upper="10000" value="60"></div>
+    <div><label for="coverage">Площадь на одну пачку по этикетке, м²</label><input id="coverage" inputmode="decimal" data-lower="0.1" data-upper="1000" value="25"></div>
+    <div><label for="reserve">Запас клея, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Чистая площадь — площадь оклеиваемых стен без дверей, окон и других участков, где обоев не будет. Прибавьте запас, разделите площадь на покрытие одной пачки и округлите вверх. Указанные начальные значения служат примером. На этикетке клея проверьте норму для выбранного типа обоев и основания.</p>
+  <h2>Пример расчёта</h2>
+  <p>Чистая площадь оклейки, м² — 60 · Площадь на одну пачку по этикетке, м² — 25 · Запас клея, % — 10. Результат — <strong>3 пач.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="oboi"><span class="ico">🧻</span><b>Обои</b></a>
+<a class="tile" href="gruntovka"><span class="ico">🖌️</span><b>Грунтовка</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"пач.","expression":["area","reserve","100","/","1","+","*","coverage","/","ceil"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

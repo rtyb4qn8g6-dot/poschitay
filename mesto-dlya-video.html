@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сколько места займёт видео | Посчитай</title>
+  <meta name="description" content="Рассчитайте место для видеозаписей по длительности, битрейту и количеству файлов.">
+  <link rel="canonical" href="https://poschitay24.ru/mesto-dlya-video">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#den">Дом и каждый день</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#den">Дом и каждый день</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🎥</div><div><h1>Сколько места займёт видео</h1><p class="lead">Рассчитайте место для видеозаписей по длительности, битрейту и количеству файлов.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="duration">Длительность одной записи, мин</label><input id="duration" inputmode="decimal" data-lower="0.01" data-upper="100000" value="35"></div>
+    <div><label for="bitrate">Общий битрейт, Мбит/с</label><input id="bitrate" inputmode="decimal" data-lower="0.01" data-upper="100000" value="8"></div>
+    <div><label for="count">Количество записей</label><input id="count" inputmode="decimal" data-lower="1" data-upper="10000" value="4"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте длительность в секундах на общий битрейт видео и звука. Умножьте на число файлов и разделите на 8 000. Значение приблизительное для среднего битрейта и указано в десятичных гигабайтах.</p>
+  <h2>Пример расчёта</h2>
+  <p>Длительность одной записи, мин — 35 · Общий битрейт, Мбит/с — 8 · Количество записей — 4. Результат — <strong>8,4 ГБ</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="filmy-i-knigi"><span class="ico">🎬</span><b>Сколько книг вы успеете</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"ГБ","expression":["duration","60","*","bitrate","*","count","*","8000","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Щебень для садовой дорожки | Посчитай</title>
+  <meta name="description" content="Оцените объём слоя щебня на прямой садовой дорожке по длине, ширине, толщине и запасу.">
+  <link rel="canonical" href="https://poschitay24.ru/shcheben-dlya-dorozhki">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Ремонт и стройка</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🪨</div><div><h1>Щебень для садовой дорожки</h1><p class="lead">Оцените объём слоя щебня на прямой садовой дорожке по длине, ширине, толщине и запасу.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Длина дорожки, м</label><input id="length" inputmode="decimal" data-lower="0.1" data-upper="1000" value="15"></div>
+    <div><label for="width">Ширина дорожки, м</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="50" value="1.2"></div>
+    <div><label for="depth">Толщина слоя, см</label><input id="depth" inputmode="decimal" data-lower="0.1" data-upper="100" value="8"></div>
+    <div><label for="reserve">Запас на потери и уплотнение, %</label><input id="reserve" inputmode="decimal" data-lower="0" data-upper="100" value="10"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте длину на ширину и толщину слоя в метрах, затем прибавьте запас. При переменной ширине разбейте дорожку на прямоугольные участки. Запас задаётся пользователем, поскольку степень уплотнения зависит от материала и способа укладки. Расчёт даёт объём одного слоя и не определяет толщину основания.</p>
+  <h2>Пример расчёта</h2>
+  <p>Длина дорожки, м — 15 · Ширина дорожки, м — 1,2 · Толщина слоя, см — 8 · Запас на потери и уплотнение, % — 10. Результат — <strong>1,584 м³</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="ploshchad"><span class="ico">📐</span><b>Площадь комнаты</b></a>
+<a class="tile" href="smeta-remonta"><span class="ico">🧾</span><b>Смета ремонта</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"м³","expression":["length","width","*","depth","*","100","/","reserve","100","/","1","+","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

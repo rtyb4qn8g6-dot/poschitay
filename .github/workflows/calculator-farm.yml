@@ -42,6 +42,7 @@ jobs:
             fi
           done <<< "$drafts"
           echo "active=$active" >> "$GITHUB_OUTPUT"
+          echo "pending=$(node automation/prepare.cjs --pending)" >> "$GITHUB_OUTPUT"
           git ls-remote --heads origin 'refs/heads/calc-draft/*' |
             awk '{sub("refs/heads/calc-draft/", "", $2); print $2}' |
             paste -sd ' ' - | sed 's/^/PROPOSED_SLUGS=/' >> "$GITHUB_ENV"
@@ -49,6 +50,7 @@ jobs:
             echo 'Открыт черновик. Проверенная очередь по-прежнему выпускается.' >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Запустить локальную модель
+        if: steps.queue.outputs.pending == '0' && steps.queue.outputs.active != 'true'
         id: model
         continue-on-error: true
         timeout-minutes: 8
@@ -61,7 +63,7 @@ jobs:
           done
           docker exec calc-model ollama pull qwen2.5:1.5b
           echo "ready=true" >> "$GITHUB_OUTPUT"
-      - name: Сгенерировать и проверить калькулятор
+      - name: Сгенерировать и проверить пакет
         id: calc
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
@@ -71,42 +73,48 @@ jobs:
           node automation/audit.cjs
           node --test tests/*.test.cjs
           git diff --check
-      - name: Выпустить калькулятор из проверенной очереди
+      - name: Выпустить проверенный пакет
         if: steps.calc.outputs.vetted == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          SLUG: ${{ steps.calc.outputs.slug }}
+          SLUGS: ${{ steps.calc.outputs.slugs }}
+          COUNT: ${{ steps.calc.outputs.count }}
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "$SLUG.html" index.html assets/app.js sitemap.xml sw.js
-          git commit -m "Опубликовать калькулятор: $SLUG"
+          read -r -a slugs <<< "$SLUGS"
+          pages=("${slugs[@]/%/.html}")
+          git add -- "${pages[@]}" index.html assets/app.js sitemap.xml sw.js
+          git commit -m "Выпустить пакет: $COUNT новых калькуляторов"
           git push origin HEAD:refs/heads/main
           for attempt in 1 2 3; do
             if gh workflow run pages.yml --ref main; then break; fi
             if [[ "$attempt" == 3 ]]; then exit 1; fi
             sleep 5
           done
-          echo "Публикация запущена для $SLUG." >> "$GITHUB_STEP_SUMMARY"
+          echo "Публикация пакета ($COUNT): $SLUGS." >> "$GITHUB_STEP_SUMMARY"
       - name: Сохранить проверенный черновик
         if: steps.calc.outputs.slug != '' && steps.calc.outputs.vetted != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           SLUG: ${{ steps.calc.outputs.slug }}
-          TITLE: ${{ steps.calc.outputs.title }}
+          SLUGS: ${{ steps.calc.outputs.slugs }}
+          COUNT: ${{ steps.calc.outputs.count }}
         run: |
           set -euo pipefail
           branch="calc-draft/$SLUG"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch -c "$branch"
-          git add -- "$SLUG.html" index.html assets/app.js sitemap.xml sw.js
-          git commit -m "Черновик калькулятора: $SLUG"
+          read -r -a slugs <<< "$SLUGS"
+          pages=("${slugs[@]/%/.html}")
+          git add -- "${pages[@]}" index.html assets/app.js sitemap.xml sw.js
+          git commit -m "Черновик пакета калькуляторов: $SLUG"
           git push origin "HEAD:refs/heads/$branch"
           link="https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1"
-          if gh pr create --draft --base main --head "$branch" --title "$TITLE" \
-            --body "Калькулятор подготовлен по расписанию. Контрольные примеры и тесты пройдены. Перед публикацией проверьте формулу, допущения и мобильный вид."; then
+          if gh pr create --draft --base main --head "$branch" --title "Новый пакет: $COUNT калькуляторов" \
+            --body "Пакет подготовлен по расписанию. Контрольные примеры и тесты пройдены. Перед публикацией проверьте формулу, допущения и мобильный вид."; then
             echo "Черновик PR открыт для $SLUG." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Черновик сохранён в ветке. [Открыть PR]($link)." >> "$GITHUB_STEP_SUMMARY"
