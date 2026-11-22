@@ -2,7 +2,7 @@ name: Калькуляторы и проверка сайта
 
 on:
   schedule:
-    - cron: '23 2 * * 2,5'
+    - cron: '23 2 * * *'
   workflow_dispatch:
   push:
     branches: [main]
@@ -23,6 +23,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -37,16 +38,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          active=$(gh pr list --state open --json headRefName --jq 'any(.[]; .headRefName | startswith("calc-draft/"))')
+          active=false
+          drafts=$(gh pr list --state open --json headRefName --jq '.[] | .headRefName | select(startswith("calc-draft/"))')
+          while IFS= read -r branch; do
+            if [[ -n "$branch" && ! -f "${branch#calc-draft/}.html" ]]; then
+              active=true
+            fi
+          done <<< "$drafts"
           echo "active=$active" >> "$GITHUB_OUTPUT"
           git ls-remote --heads origin 'refs/heads/calc-draft/*' |
             awk '{sub("refs/heads/calc-draft/", "", $2); print $2}' |
             paste -sd ' ' - | sed 's/^/PROPOSED_SLUGS=/' >> "$GITHUB_ENV"
           if [ "$active" = true ]; then
-            echo 'Открыт черновик предыдущего калькулятора.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Открыт черновик. Проверенная очередь по-прежнему выпускается.' >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Запустить локальную модель
-        if: steps.queue.outputs.active != 'true'
         id: model
         continue-on-error: true
         timeout-minutes: 8
@@ -60,17 +66,31 @@ jobs:
           docker exec calc-model ollama pull qwen2.5:1.5b
           echo "ready=true" >> "$GITHUB_OUTPUT"
       - name: Сгенерировать и проверить калькулятор
-        if: steps.queue.outputs.active != 'true'
         id: calc
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
+          DRAFT_ACTIVE: ${{ steps.queue.outputs.active }}
         run: |
           node automation/prepare.cjs
           node automation/audit.cjs
           node --test tests/*.test.cjs
           git diff --check
+      - name: Выпустить калькулятор из проверенной очереди
+        if: steps.calc.outputs.vetted == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ steps.calc.outputs.slug }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$SLUG.html" index.html assets/app.js sitemap.xml sw.js
+          git commit -m "Опубликовать калькулятор: $SLUG"
+          git push origin HEAD:refs/heads/main
+          gh workflow run pages.yml --ref main
+          echo "Публикация запущена для $SLUG." >> "$GITHUB_STEP_SUMMARY"
       - name: Сохранить проверенный черновик
-        if: steps.calc.outputs.slug != ''
+        if: steps.calc.outputs.slug != '' && steps.calc.outputs.vetted != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           SLUG: ${{ steps.calc.outputs.slug }}

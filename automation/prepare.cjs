@@ -123,7 +123,8 @@ async function main() {
     console.log("Контрольные примеры прошли: " + queue.reduce((n, s) => n + s.checks.length, 0));
     return;
   }
-  const available = queue.filter(({ slug }) => !exists(slug));
+  const available = queue.filter(({ slug }) => !catalogue.has(slug) && !fs.existsSync(slug + ".html"));
+  if (!available.length && process.env.DRAFT_ACTIVE === "true") return;
   let spec = available[0];
   if (process.env.MODEL_READY === "true") {
     try {
@@ -146,7 +147,7 @@ async function main() {
   }
   if (!spec) return;
   render(spec);
-  fs.appendFileSync(process.env.GITHUB_OUTPUT, `slug=${spec.slug}\ntitle=${spec.title}\n`);
+  fs.appendFileSync(process.env.GITHUB_OUTPUT, `slug=${spec.slug}\ntitle=${spec.title}\nvetted=${available.includes(spec)}\n`);
   console.log("Подготовлено: " + spec.slug);
 }
 
