@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Остаток лимита багажа | Посчитай</title>
+  <meta name="description" content="Узнайте, сколько килограммов осталось в чемодане по тарифу и массе уже собранных вещей.">
+  <link rel="canonical" href="https://poschitay24.ru/bagazh-limity">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#avto">Авто и поездки</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#avto">Авто и поездки</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🧳</div><div><h1>Остаток лимита багажа</h1><p class="lead">Узнайте, сколько килограммов осталось в чемодане по тарифу и массе уже собранных вещей.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="limit">Лимит веса одного места, кг</label><input id="limit" inputmode="decimal" data-lower="0" data-upper="1000" value="23"></div>
+    <div><label for="case">Масса пустого чемодана, кг</label><input id="case" inputmode="decimal" data-lower="0" data-upper="1000" value="4.1"></div>
+    <div><label for="items">Масса вещей, кг</label><input id="items" inputmode="decimal" data-lower="0" data-upper="1000" value="16.35"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Вычтите из лимита массу чемодана и вещей. Положительное число — остаток, отрицательное — превышение лимита. Для каждого места считайте отдельно и проверяйте размеры по условиям перевозчика.</p>
+  <h2>Пример расчёта</h2>
+  <p>Лимит веса одного места, кг — 23 · Масса пустого чемодана, кг — 4,1 · Масса вещей, кг — 16,35. Результат — <strong>2,55 кг</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="korobki-pereezd"><span class="ico">📦</span><b>Коробки и рейсы для переезда</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"кг","expression":["limit","case","-","items","-"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

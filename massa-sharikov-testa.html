@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вес заготовки из теста | Посчитай</title>
+  <meta name="description" content="Разделите тесто на равные заготовки, учитывая потери при замесе и разделке.">
+  <link rel="canonical" href="https://poschitay24.ru/massa-sharikov-testa">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#kuhnya">Кухня</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#kuhnya">Кухня</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🥖</div><div><h1>Вес заготовки из теста</h1><p class="lead">Разделите тесто на равные заготовки, учитывая потери при замесе и разделке.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="dough">Общая масса теста, г</label><input id="dough" inputmode="decimal" data-lower="1" data-upper="100000" value="1300"></div>
+    <div><label for="loss">Потери на миске и инструментах, %</label><input id="loss" inputmode="decimal" data-lower="0" data-upper="100" value="4"></div>
+    <div><label for="pieces">Число заготовок</label><input id="pieces" inputmode="numeric" data-lower="1" data-upper="10000" value="8"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Сначала вычтите долю потерь, затем разделите доступную массу теста на число одинаковых заготовок. Потери относятся к замесу и разделке. Масса после выпечки зависит от рецепта.</p>
+  <h2>Пример расчёта</h2>
+  <p>Общая масса теста, г — 1 300 · Потери на миске и инструментах, % — 4 · Число заготовок — 8. Результат — <strong>156 г</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="recept-porcii"><span class="ico">📖</span><b>Рецепт на N порций</b></a>
+<a class="tile" href="picca"><span class="ico">🍕</span><b>Какая пицца выгоднее</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"г","expression":["dough","1","loss","100","/","-","*","pieces","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

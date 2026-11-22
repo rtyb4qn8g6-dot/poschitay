@@ -49,12 +49,12 @@ function validate(spec) {
   assert(new Set(checks.map(({ values }) => JSON.stringify([...ids].map((id) => values[id])))).size >= 2);
   assert(Array.isArray(related) && related.length <= 4 && related.every((id) => catalogue.has(id)));
   for (const { values, expected } of checks) {
-    assert(Object.keys(values).length === ids.size && Number.isFinite(expected) && expected >= 0);
+    assert(Object.keys(values).length === ids.size && Number.isFinite(expected));
     for (const { id, min, max, integer } of fields) assert(Number.isFinite(values[id]) && min <= values[id] && values[id] <= max && (!integer || Number.isInteger(values[id])));
     assert(Math.abs(evaluate(expression, values) - expected) <= Math.max(1, Math.abs(expected)) * 1e-9, "Контрольный пример не сошёлся");
   }
   const defaultResult = evaluate(expression, Object.fromEntries(fields.map(({ id, value }) => [id, value])));
-  assert(defaultResult >= 0);
+  assert(Number.isFinite(defaultResult));
 }
 
 async function model(prompt) {

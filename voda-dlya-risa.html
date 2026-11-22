@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Пропорции риса и воды | Посчитай</title>
+  <meta name="description" content="Отмерьте воду для нескольких мерок риса по пропорции из своего рецепта.">
+  <link rel="canonical" href="https://poschitay24.ru/voda-dlya-risa">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#kuhnya">Кухня</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#kuhnya">Кухня</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🍚</div><div><h1>Пропорции риса и воды</h1><p class="lead">Отмерьте воду для нескольких мерок риса по пропорции из своего рецепта.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="rice">Объём сухого риса, мл</label><input id="rice" inputmode="decimal" data-lower="1" data-upper="100000" value="250"></div>
+    <div><label for="ratio">Частей воды на одну часть риса</label><input id="ratio" inputmode="decimal" data-lower="0.1" data-upper="10" value="1.75"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте объём сухого риса на объёмное отношение воды к рису. Пропорция зависит от сорта и способа варки. Возьмите её из рецепта или с упаковки.</p>
+  <h2>Пример расчёта</h2>
+  <p>Объём сухого риса, мл — 250 · Частей воды на одну часть риса — 1,75. Результат — <strong>437,5 мл</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="recept-porcii"><span class="ico">📖</span><b>Рецепт на N порций</b></a>
+<a class="tile" href="proporcii"><span class="ico">⚖️</span><b>Пропорции</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"мл","expression":["rice","ratio","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Пропорции кофе и воды | Посчитай</title>
+  <meta name="description" content="Рассчитайте массу молотого кофе по количеству воды и пропорции заваривания.">
+  <link rel="canonical" href="https://poschitay24.ru/kofe-na-vodu">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#kuhnya">Кухня</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#kuhnya">Кухня</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">☕</div><div><h1>Пропорции кофе и воды</h1><p class="lead">Рассчитайте массу молотого кофе по количеству воды и пропорции заваривания.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="water">Количество воды, мл</label><input id="water" inputmode="decimal" data-lower="1" data-upper="100000" value="480"></div>
+    <div><label for="ratio">Частей воды на одну часть кофе</label><input id="ratio" inputmode="decimal" data-lower="1" data-upper="100" value="16"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Разделите массу воды на выбранное отношение воды к кофе. Для бытового расчёта 1 мл воды принят за 1 г. Например, для пропорции кофе к воде 1 к 16 введите 16.</p>
+  <h2>Пример расчёта</h2>
+  <p>Количество воды, мл — 480 · Частей воды на одну часть кофе — 16. Результат — <strong>30 г</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="kofein"><span class="ico">☕</span><b>Калькулятор кофеина</b></a>
+<a class="tile" href="gramm-v-lozhke"><span class="ico">🥄</span><b>Граммы в ложке и стакане</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"г","expression":["water","ratio","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

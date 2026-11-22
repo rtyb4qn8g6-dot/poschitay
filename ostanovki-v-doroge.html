@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сколько остановок запланировать в дороге | Посчитай</title>
+  <meta name="description" content="Посчитайте число перерывов по времени в пути и выбранному интервалу между остановками.">
+  <link rel="canonical" href="https://poschitay24.ru/ostanovki-v-doroge">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#avto">Авто и поездки</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#avto">Авто и поездки</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🛑</div><div><h1>Сколько остановок запланировать в дороге</h1><p class="lead">Посчитайте число перерывов по времени в пути и выбранному интервалу между остановками.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="drive">Время за рулём, ч</label><input id="drive" inputmode="decimal" data-lower="0.01" data-upper="1000" value="8.5"></div>
+    <div><label for="interval">Интервал между остановками, ч</label><input id="interval" inputmode="decimal" data-lower="0.01" data-upper="100" value="2"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Разделите время в движении на выбранный интервал, округлите вверх и вычтите один. Последняя точка — место назначения. Интервал задайте самостоятельно и добавляйте остановки по самочувствию.</p>
+  <h2>Пример расчёта</h2>
+  <p>Время за рулём, ч — 8,5 · Интервал между остановками, ч — 2. Результат — <strong>4 остановок</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="skorost-vremya"><span class="ico">🚀</span><b>Скорость, время, расстояние</b></a>
+<a class="tile" href="stoimost-poezdki"><span class="ico">🚗</span><b>Стоимость поездки</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"остановок","expression":["drive","interval","/","ceil","1","-","0","max"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

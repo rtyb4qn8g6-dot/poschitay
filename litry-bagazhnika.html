@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Объём груза по размерам коробок | Посчитай</title>
+  <meta name="description" content="Посчитайте общий объём одинаковых коробок перед поездкой или доставкой.">
+  <link rel="canonical" href="https://poschitay24.ru/litry-bagazhnika">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#avto">Авто и поездки</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#avto">Авто и поездки</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🚚</div><div><h1>Объём груза по размерам коробок</h1><p class="lead">Посчитайте общий объём одинаковых коробок перед поездкой или доставкой.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Наружная длина коробки, см</label><input id="length" inputmode="decimal" data-lower="0.1" data-upper="1000" value="60"></div>
+    <div><label for="width">Наружная ширина коробки, см</label><input id="width" inputmode="decimal" data-lower="0.1" data-upper="1000" value="40"></div>
+    <div><label for="height">Наружная высота коробки, см</label><input id="height" inputmode="decimal" data-lower="0.1" data-upper="1000" value="30"></div>
+    <div><label for="count">Количество коробок</label><input id="count" inputmode="numeric" data-lower="1" data-upper="10000" value="3"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Перемножьте наружные размеры в сантиметрах и количество коробок. Разделите кубические сантиметры на 1 000. Литраж описывает объём, а возможность загрузки зависит от формы багажника и дверного проёма.</p>
+  <h2>Пример расчёта</h2>
+  <p>Наружная длина коробки, см — 60 · Наружная ширина коробки, см — 40 · Наружная высота коробки, см — 30 · Количество коробок — 3. Результат — <strong>216 л</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="korobki-pereezd"><span class="ico">📦</span><b>Коробки и рейсы для переезда</b></a>
+<a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"л","expression":["length","width","*","height","*","count","*","1000","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>
