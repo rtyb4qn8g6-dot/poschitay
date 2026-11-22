@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расход воды в душе | Посчитай</title>
+  <meta name="description" content="Узнайте, сколько кубометров воды уходит на душ за месяц по расходу лейки, времени и числу включений.">
+  <link rel="canonical" href="https://poschitay24.ru/rashod-vody-v-dushe">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#remont">Все калькуляторы ремонта</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#remont">Ремонт и стройка</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🚿</div><div><h1>Расход воды в душе</h1><p class="lead">Узнайте, сколько кубометров воды уходит на душ за месяц по расходу лейки, времени и числу включений.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="flow">Расход лейки, л/мин</label><input id="flow" inputmode="decimal" data-lower="0.1" data-upper="100" value="9"></div>
+    <div><label for="duration">Время, когда течёт вода, мин за один душ</label><input id="duration" inputmode="decimal" data-lower="0" data-upper="120" value="8"></div>
+    <div><label for="sessions">Среднее число включений душа в день на всех</label><input id="sessions" inputmode="decimal" data-lower="0" data-upper="100" value="2"></div>
+    <div><label for="days">Дней в расчётном периоде</label><input id="days" inputmode="decimal" data-lower="1" data-upper="366" value="30"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте расход лейки на минуты, число включений в день и число дней. Разделите литры на 1000, чтобы получить кубометры. Чтобы узнать расход лейки, замерьте объём воды, набранный в мерную ёмкость за известное время. Время намыливания учитывайте только если вода продолжает течь.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="kommunalka"><span class="ico">🧾</span><b>Коммунальные платежи</b></a>
+<a class="tile" href="remont-vannoy"><span class="ico">🛁</span><b>Ремонт ванной целиком</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"м³","expression":["flow","duration","*","sessions","*","days","*","1000","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>
