@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="ai-chat-endpoint" content="/api/chat">
+  <title>ИИ-калькулятор | Посчитай</title>
+  <meta name="description" content="Опишите расчёт своими словами. ИИ-помощник уточнит данные и покажет ответ с формулой.">
+  <link rel="canonical" href="https://poschitay24.ru/ai-chat">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/ai-chat.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <script src="assets/ai-chat.js" defer></script>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <header class="site"><div class="wrap">
+    <a class="logo" href="./"><b>П</b>Посчитай</a>
+    <a href="./">Все калькуляторы</a>
+  </div></header>
+  <main class="wrap chat-wrap">
+    <h1>Что <span class="grad-text">посчитать?</span></h1>
+    <p class="lead">Опишите задачу своими словами. ИИ уточнит детали и покажет, как получил результат.</p>
+    <div class="chat-examples" aria-label="Примеры вопросов">
+      <button class="chip" type="button" data-example="Сколько пачек по 6 штук купить для 35 гостей, если каждому нужно по 2 штуки?">Покупка на 35 гостей</button>
+      <button class="chip" type="button" data-example="Что дешевле: 850 г за 279 ₽ или 1,2 кг за 369 ₽?">Сравнить упаковки</button>
+      <button class="chip" type="button" data-example="Сколько краски нужно для спальни?">Краска для спальни</button>
+    </div>
+    <section class="card chat-card" aria-label="ИИ-калькулятор">
+      <div id="chat-log" class="chat-log" role="log" aria-label="Диалог" aria-live="polite" aria-relevant="additions"></div>
+      <form id="chat-form">
+        <label for="chat-input">Ваш вопрос</label>
+        <textarea id="chat-input" name="question" rows="3" maxlength="1500" required placeholder="Например, сколько часов займёт поездка?"></textarea>
+        <div class="chat-controls">
+          <small>Сообщения передаются сервису ИИ. Не вводите личные данные.</small>
+          <button class="btn primary" id="chat-send" type="submit">Посчитать</button>
+        </div>
+        <p id="chat-status" role="status"></p>
+      </form>
+      <noscript>Для диалога включите JavaScript. <a href="./">Открыть каталог</a></noscript>
+    </section>
+  </main>
+</body>
+</html>
