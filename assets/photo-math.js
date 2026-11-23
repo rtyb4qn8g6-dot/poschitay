@@ -261,7 +261,44 @@
     return { answer, steps };
   }
 
-  const api = { solve };
+  function solveRadicalSystem(uText, vText) {
+    function parameter(text) {
+      const value = text.trim().replace(",", ".").replace("−", "-");
+      if (!/^[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)$/.test(value) || value.length > 32) {
+        throw Error("Введите u и v десятичными числами.");
+      }
+      const [whole, fraction = ""] = value.replace(/^[+-]/, "").split(".");
+      const numerator = BigInt((whole || "0") + fraction);
+      return new Rational(value.startsWith("-") ? -numerator : numerator, 10n ** BigInt(fraction.length));
+    }
+
+    const u = parameter(uText);
+    const v = parameter(vText);
+    const three = new Rational(3n);
+    const q = three.mul(u.sub(v)).mul(u.add(v));
+    const steps = [
+      "Обозначим s = √(x² − y²). Для действительных корней и ненулевого знаменателя нужно 0 ≤ s < 1.",
+      "Складываем и вычитаем уравнения. Получаем (1 − s)(x + y) = 3(u + v)D и (1 + s)(x − y) = (u − v)D, где D = √(1 − s²).",
+      "Перемножаем равенства и сокращаем на D² = 1 − s². Получаем s² = 3(u² − v²) = " + q.text() + "."
+    ];
+    if (q.n < 0n || q.n >= q.d) {
+      steps.push("Значение s² должно лежать в диапазоне [0, 1).");
+      return { answer: "Нет действительных решений", steps };
+    }
+    const number = (value) => Number(value.n) / Number(value.d);
+    const display = (value) => String(Number(value.toPrecision(10))).replace(".", ",").replace(/-/g, "−");
+    const s = Math.sqrt(number(q));
+    const d = Math.sqrt(number(one.sub(q)));
+    const p = 3 * number(u.add(v)) * (1 + s) / d;
+    const m = number(u.sub(v)) * d / (1 + s);
+    const x = (p + m) / 2;
+    const y = (p - m) / 2;
+    steps.push("Подставляем s и D. Получаем x + y ≈ " + display(p) + " и x − y ≈ " + display(m) + ".");
+    steps.push("Половина суммы этих выражений даёт x, половина разности — y.");
+    return { answer: "x ≈ " + display(x) + ", y ≈ " + display(y), steps, x, y };
+  }
+
+  const api = { solve, solveRadicalSystem };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else window.PhotoMath = api;
 })();

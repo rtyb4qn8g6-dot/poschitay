@@ -111,41 +111,38 @@
       status.textContent = "Твой ввод сохранён. Выбери фото ещё раз, чтобы подставить распознанный текст.";
       return;
     }
-    const paired = lines.length === 2 && lines.every((line) => line.includes("=")) &&
-      lines.some((line) => /[yу]/i.test(line));
-    if (paired) {
-      const system = lines.join("\n");
-      try {
-        window.PhotoMath.solve(system);
-        showSolution(system);
-        status.textContent = "Распознана линейная система. Сверь обе строки с фото.";
-      } catch {
-        field.value = system;
-        status.textContent = "Две строки распознаны, но система не решилась. Проверь запись. Для примера с корнями смотри разбор ниже.";
-      }
+    const equations = lines.filter((line) => line.includes("="));
+    if (equations.length === 2 && equations.join("\n").length <= field.maxLength) {
+      field.value = equations.join("\n");
+      status.textContent = "В поле ниже две строки. Сверь обе с фото, затем нажми «Решить по шагам».";
       return;
     }
     const solvable = lines.filter(canSolve);
-    if (solvable.length === 1) {
-      showSolution(solvable[0]);
-      status.textContent = "Решение готово. Сверь распознанную запись с фото. Если знак или цифра отличаются, поправь и пересчитай.";
-    } else if (solvable.length > 1) {
+    if (solvable.length > 1) {
       for (const [index, line] of solvable.entries()) {
         const choice = document.createElement("button");
         choice.type = "button";
         choice.className = "chip";
         choice.textContent = line;
         choice.setAttribute("aria-label", "Пример " + (index + 1) + ": " + line);
-        choice.addEventListener("click", () => { revision += 1; showSolution(line); });
+        choice.addEventListener("click", () => {
+          revision += 1;
+          field.value = line;
+          result.hidden = true;
+          field.focus();
+        });
         choices.append(choice);
       }
       choices.hidden = false;
-      status.textContent = "Нашли несколько примеров. Выбери, какой решить.";
-    } else if (lines.length === 1) {
-      field.value = lines[0];
-      status.textContent = "Фото прочитано частично. Поправь запись в поле ниже и нажми «Решить по шагам».";
+      status.textContent = "Нашли несколько примеров. Выбери один и сверь с фото.";
+      return;
+    }
+    const draft = (solvable.length ? solvable : lines).join("\n");
+    if (draft && draft.length <= field.maxLength) {
+      field.value = draft;
+      status.textContent = "Сверь запись в поле ниже. Проверь, что сохранены все строки, числа и знаки.";
     } else {
-      status.textContent = "Не удалось прочитать математическую запись. Для дробей с чертой и сложных корней попробуй ручной ввод или разбор ниже.";
+      status.textContent = "Запись прочитать не удалось. Введи её вручную. Для системы с корнями на этой странице есть отдельный расчёт.";
     }
   }
 
@@ -199,6 +196,7 @@
       const lines = await recognizeWith(wide ? tesseract.PSM.SINGLE_LINE : tesseract.PSM.SPARSE_TEXT);
       if (done || lines.some(canSolve) || lines.filter((line) => line.includes("=")).length >= 2) return lines;
       const alternate = await recognizeWith(wide ? tesseract.PSM.SPARSE_TEXT : tesseract.PSM.SINGLE_LINE);
+      if (alternate.filter((line) => line.includes("=")).length >= 2) return alternate;
       return alternate.some(canSolve) || !lines.length ? alternate : lines;
     };
     try {
@@ -235,12 +233,11 @@
     });
   }
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    result.replaceChildren();
-    result.hidden = false;
+  function renderSolution(target, solve) {
+    target.replaceChildren();
+    target.hidden = false;
     try {
-      const solution = window.PhotoMath.solve(field.value);
+      const solution = solve();
       const answer = document.createElement("div");
       answer.className = "big";
       answer.textContent = solution.answer;
@@ -250,9 +247,23 @@
         item.textContent = step;
         steps.append(item);
       }
-      result.append(answer, steps);
+      target.append(answer, steps);
     } catch (error) {
-      result.textContent = error.message || "Не удалось решить пример. Проверь запись и попробуй снова.";
+      target.textContent = error.message || "Не удалось решить пример. Проверь запись и попробуй снова.";
     }
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    renderSolution(result, () => window.PhotoMath.solve(field.value));
+  });
+
+  const radicalForm = el("radical-form");
+  const radicalResult = el("radical-result");
+  radicalForm.addEventListener("input", () => { radicalResult.hidden = true; });
+  radicalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const parameters = new FormData(radicalForm);
+    renderSolution(radicalResult, () => window.PhotoMath.solveRadicalSystem(parameters.get("u"), parameters.get("v")));
   });
 })();

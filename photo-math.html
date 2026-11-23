@@ -20,7 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/photo-math.css?v=3">
+<link rel="stylesheet" href="assets/photo-math.css?v=4">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 <link rel="icon" type="image/png" sizes="120x120" href="assets/favicon-120.png">
@@ -68,9 +68,9 @@
 </section>
 <form class="card" id="photo-form">
   <div><label for="math-input">Пример или уравнение</label>
-    <textarea id="math-input" maxlength="282" rows="2" placeholder="Например, x²−5x+6=0" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="math-hint" required></textarea>
+    <textarea id="math-input" maxlength="600" rows="3" placeholder="Например, x²−5x+6=0" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="math-hint" required></textarea>
   </div>
-  <p id="math-hint">Проверь цифры и знаки. Дробь запиши через /, корень — как √(49). В линейной системе с x и y вводи каждое уравнение на отдельной строке.</p>
+  <p id="math-hint">Проверь цифры и знаки. Дробь запиши через /, корень — как √(49). В системе с x и y вводи каждое уравнение на отдельной строке. После распознавания сверь запись с фото и нажми кнопку расчёта.</p>
   <div class="math-examples" aria-label="Примеры для проверки">
     <button type="button" class="chip" data-math="(2 + 3) × 4">Скобки</button>
     <button type="button" class="chip" data-math="1/2 + 1/3">Дроби</button>
@@ -96,7 +96,15 @@
       <li>Если 0 ≤ 3(u² − v²) &lt; 1, находим s и D. Обозначим найденные сумму и разность через P = x + y и Q = x − y. Тогда x = (P + Q)/2, y = (P − Q)/2. Вне этого диапазона действительных решений нет.</li>
     </ol>
   </details>
-  <p>Это разбор одного типа нелинейных систем. Фото с дробями над чертой, вложенными корнями и сложной разметкой пока распознаются ненадёжно.</p>
+  <form id="radical-form">
+    <p>Если оба уравнения совпадают с формулой выше, введи значения <var>u</var> и <var>v</var>.</p>
+    <div class="math-parameters">
+      <label>Значение u <input name="u" inputmode="decimal" maxlength="32" required></label>
+      <label>Значение v <input name="v" inputmode="decimal" maxlength="32" required></label>
+    </div>
+    <button type="submit" class="btn">Найти x и y</button>
+    <div class="result" id="radical-result" aria-live="polite" hidden></div>
+  </form>
 </section>
 </main>
 <footer class="site"><div class="wrap">
@@ -111,7 +119,7 @@
   </div>
 </div></footer>
 <script src="assets/app.js" defer></script>
-<script src="assets/photo-math.js?v=3" defer></script>
-<script src="assets/photo-math-ui.js?v=3" defer></script>
+<script src="assets/photo-math.js?v=4" defer></script>
+<script src="assets/photo-math-ui.js?v=4" defer></script>
 </body>
 </html>

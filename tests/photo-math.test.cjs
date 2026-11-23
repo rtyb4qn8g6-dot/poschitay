@@ -2,7 +2,7 @@
 
 const assert = require("node:assert/strict");
 const test = require("node:test");
-const { solve } = require("../assets/photo-math.js");
+const { solve, solveRadicalSystem } = require("../assets/photo-math.js");
 
 const expressions = [
   ["2+3*4", "14"],
@@ -52,4 +52,23 @@ test("evaluates exact square roots in expressions", () => {
   assert.equal(solve("2√(9)").answer, "6");
   assert.throws(() => solve("√(-1)"), /неотрицательного/);
   assert.throws(() => solve("√(2)+1"), /рациональные/);
+});
+
+test("solves the radical system and satisfies both original equations", () => {
+  const u = 0.4;
+  const v = -0.2;
+  const { x, y } = solveRadicalSystem("0,4", "−0,2");
+  const s = Math.sqrt(x * x - y * y);
+  const d = Math.sqrt(1 - x * x + y * y);
+  assert.ok(Math.abs((x * (2 + s) - y * (1 + 2 * s)) / d - 3 * u) < 1e-12);
+  assert.ok(Math.abs((y * (2 + s) - x * (1 + 2 * s)) / d - 3 * v) < 1e-12);
+});
+
+test("handles the radical system domain and validates parameters", () => {
+  const { x, y } = solveRadicalSystem("0.5", "0.5");
+  assert.equal(x, 1.5);
+  assert.equal(y, 1.5);
+  assert.equal(solveRadicalSystem("0", "1").answer, "Нет действительных решений");
+  assert.equal(solveRadicalSystem("1", "0").answer, "Нет действительных решений");
+  assert.throws(() => solveRadicalSystem("", "1"), /десятичными/);
 });

@@ -24,3 +24,15 @@
 .math-worked-example .math-formula { font-size: 1.12rem; overflow-wrap: anywhere; }
 .math-worked-example summary { cursor: pointer; font-weight: 700; }
 .math-worked-example li + li { margin-top: .55em; }
+
+.math-parameters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 12px;
+  max-width: 28rem;
+  margin-bottom: 16px;
+}
+
+.math-parameters input {
+  width: 100%;
+}
