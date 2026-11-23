@@ -111,6 +111,20 @@
       status.textContent = "Твой ввод сохранён. Выбери фото ещё раз, чтобы подставить распознанный текст.";
       return;
     }
+    const paired = lines.length === 2 && lines.every((line) => line.includes("=")) &&
+      lines.some((line) => /[yу]/i.test(line));
+    if (paired) {
+      const system = lines.join("\n");
+      try {
+        window.PhotoMath.solve(system);
+        showSolution(system);
+        status.textContent = "Распознана линейная система. Сверь обе строки с фото.";
+      } catch {
+        field.value = system;
+        status.textContent = "Две строки распознаны, но система не решилась. Проверь запись. Для примера с корнями смотри разбор ниже.";
+      }
+      return;
+    }
     const solvable = lines.filter(canSolve);
     if (solvable.length === 1) {
       showSolution(solvable[0]);
@@ -131,7 +145,7 @@
       field.value = lines[0];
       status.textContent = "Фото прочитано частично. Поправь запись в поле ниже и нажми «Решить по шагам».";
     } else {
-      status.textContent = "Математическую строку не удалось прочитать. Обрежь фото до одного примера или введи его вручную.";
+      status.textContent = "Не удалось прочитать математическую запись. Для дробей с чертой и сложных корней попробуй ручной ввод или разбор ниже.";
     }
   }
 
@@ -183,7 +197,7 @@
       };
       const wide = canvas.width > canvas.height * 2.4;
       const lines = await recognizeWith(wide ? tesseract.PSM.SINGLE_LINE : tesseract.PSM.SPARSE_TEXT);
-      if (done || lines.some(canSolve)) return lines;
+      if (done || lines.some(canSolve) || lines.filter((line) => line.includes("=")).length >= 2) return lines;
       const alternate = await recognizeWith(wide ? tesseract.PSM.SPARSE_TEXT : tesseract.PSM.SINGLE_LINE);
       return alternate.some(canSolve) || !lines.length ? alternate : lines;
     };

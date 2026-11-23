@@ -37,3 +37,19 @@ test("rejects division by zero", () => {
 test("rejects unrecognized tokens", () => {
   assert.throws(() => solve("2+@3"), Error);
 });
+
+test("solves two linear equations using exact fractions", () => {
+  assert.equal(solve("x+y=7\n2x-y=2").answer, "x = 3, y = 4");
+  assert.equal(solve("2x+y=4;2x-y=1").answer, "x = 5/4, y = 3/2");
+  assert.equal(solve("x+y=1\n2x+2y=2").answer, "Бесконечно много решений");
+  assert.equal(solve("x+y=1\n2x+2y=3").answer, "Решений нет");
+  assert.equal(solve("x+y=1\n0=2").answer, "Решений нет");
+  assert.throws(() => solve("x*y=1\nx+y=2"), /линейной/);
+});
+
+test("evaluates exact square roots in expressions", () => {
+  assert.equal(solve("√(81) + sqrt(1/4)").answer, "19/2");
+  assert.equal(solve("2√(9)").answer, "6");
+  assert.throws(() => solve("√(-1)"), /неотрицательного/);
+  assert.throws(() => solve("√(2)+1"), /рациональные/);
+});
