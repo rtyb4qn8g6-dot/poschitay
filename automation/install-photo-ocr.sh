@@ -20,3 +20,5 @@ fetch_asset 'tesseract.js-core@6.0.0/tesseract-core-lstm.wasm.js' 'tesseract-cor
 fetch_asset '@tesseract.js-data/eng@1.0.0/4.0.0_best_int/eng.traineddata.gz' 'eng.traineddata.gz' '45b4cb346724ac1774f1c36f42f182b887bcdb28ebe63e6fff90ac41f3fcff91'
 curl -fsSL --retry 3 --max-time 30 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/LICENSE.md' -o LICENSE.txt
 curl -fsSL --retry 3 --max-time 30 'https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.0/LICENSE' -o LICENSE-core.txt
+fetch_asset 'heic2any@0.0.4/dist/heic2any.min.js' 'heic2any.min.js' '0963cfa50e9e1e7e6af929a40a81e3e898a673f1270eafa6917dd137e4968164'
+cp ../../automation/heic2any-LICENSE.txt LICENSE-heic2any.txt

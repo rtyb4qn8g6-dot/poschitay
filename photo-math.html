@@ -20,7 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/photo-math.css">
+<link rel="stylesheet" href="assets/photo-math.css?v=2">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 <link rel="icon" type="image/png" sizes="120x120" href="assets/favicon-120.png">
@@ -52,12 +52,19 @@
 </div></div>
 <section class="card math-photo-card" aria-labelledby="photo-title">
   <h2 id="photo-title">Добавить фото</h2>
-  <p id="photo-hint">Выбери одну чёткую печатную строку. Рукописные записи, многострочные дроби и несколько строк могут распознаться неверно. Фото обрабатывается в браузере. Для первой загрузки распознавателя нужен интернет.</p>
-  <div class="grid">
-    <div><label for="photo-upload">Выбрать изображение</label><input id="photo-upload" type="file" accept="image/*" aria-describedby="photo-hint"></div>
-    <div><label for="photo-camera">Сделать фото</label><input id="photo-camera" type="file" accept="image/*" capture="environment" aria-describedby="photo-hint"></div>
+  <p id="photo-hint">Сними печатный пример крупно, чтобы цифры и знаки были чёткими. Поддерживаются JPG, PNG, WebP и HEIC. Фото обрабатывается в браузере.</p>
+  <div class="math-photo-actions">
+    <button class="btn" type="button" data-photo-picker="photo-upload" aria-describedby="photo-hint">Выбрать фото</button>
+    <button class="btn ghost" type="button" data-photo-picker="photo-camera">Сделать фото</button>
+    <input id="photo-upload" type="file" accept="image/*,.heic,.heif" hidden>
+    <input id="photo-camera" type="file" accept="image/*" capture="environment" hidden>
   </div>
+  <figure id="photo-preview" class="math-photo-preview" hidden>
+    <img id="photo-image" alt="Фото с примером" hidden>
+    <figcaption id="photo-filename"></figcaption>
+  </figure>
   <p id="photo-status" role="status"></p>
+  <div id="photo-lines" class="math-examples" aria-label="Распознанные примеры" hidden></div>
 </section>
 <form class="card" id="photo-form">
   <div><label for="math-input">Пример или уравнение</label>
@@ -86,6 +93,6 @@
 </div></footer>
 <script src="assets/app.js" defer></script>
 <script src="assets/photo-math.js" defer></script>
-<script src="assets/photo-math-ui.js" defer></script>
+<script src="assets/photo-math-ui.js?v=2" defer></script>
 </body>
 </html>

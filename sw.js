@@ -1,8 +1,8 @@
 // Кэш для работы калькуляторов без интернета. При изменении файлов увеличьте версию.
-const CACHE = "poschitay-v33";
+const CACHE = "poschitay-v34";
 const FILES = [
   "metodiki",
-  "photo-math", "assets/photo-math.js", "assets/photo-math-ui.js", "assets/photo-math.css",
+  "photo-math", "assets/photo-math.js", "assets/photo-math-ui.js?v=2", "assets/photo-math.css?v=2",
   "summa-arifmeticheskoy-progressii", "vzveshennyy-ball", "rasstoyanie-po-masshtabu", "gradusy-v-radiany", "plotnost-veshchestva", "ravnovesie-rychaga", "massovaya-dolya-rastvora",
   "testo-dlya-formy", "kofe-na-vodu", "voda-dlya-risa", "massa-sharikov-testa", "zapravki-na-marshrute", "ostanovki-v-doroge", "bagazh-limity", "litry-bagazhnika",
   "tkan-dlya-shtor", "kley-dlya-oboev", "uplotnitel-dlya-dveri", "germetik-na-shvy", "shcheben-dlya-dorozhki", "mulcha-dlya-klumby", "kapelnyy-poliv", "plenka-dlya-pruda", "polki-iz-doski", "rassada-v-kassetah", "bordyur-dlya-klumby", "vremya-skachivaniya", "mesto-dlya-video", "listy-dlya-pechati", "mesto-dlya-fotografiy",
