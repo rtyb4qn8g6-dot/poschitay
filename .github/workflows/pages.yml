@@ -26,6 +26,8 @@ jobs:
       - uses: actions/configure-pages@v5
       - name: Подготовить распознавание фото
         run: bash automation/install-photo-ocr.sh
+      - name: Добавить методики и источники
+        run: node automation/render-methods.cjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

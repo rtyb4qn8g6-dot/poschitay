@@ -87,7 +87,9 @@ function render(spec) {
     `    <div><label for="${id}">${escape(label)}</label><input id="${id}" inputmode="${integer ? "numeric" : "decimal"}" data-lower="${min}" data-upper="${max}" value="${value}"></div>`).join("\n");
   const tile = (id, glyph, name, detail) => `<a class="tile" href="${id}"><span class="ico">${escape(glyph)}</span><b>${escape(name)}</b>${detail ? "<small>" + escape(detail) + "</small>" : ""}</a>`;
   const links = [...new Set(related)].map((id) => tile(id, catalogue.get(id).icon, catalogue.get(id).title));
-  const data = JSON.stringify({ unit, expression }).replaceAll("<", "\\u003c");
+  const methodSources = { remont: "materials", ucheba: "study", avto: "travel", kuchnya: "kitchen", den: "everyday" };
+  const method = { method: explanation, source: methodSources[section] };
+  const data = JSON.stringify({ unit, expression, method }).replaceAll("<", "\\u003c");
   const example = checks[0];
   const exampleNumber = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 4 });
   const exampleFields = fields.map(({ id, label }) =>

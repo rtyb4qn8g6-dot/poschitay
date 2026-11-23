@@ -471,3 +471,24 @@ input[type="date"]::-webkit-date-and-time-value, input[type="time"]::-webkit-dat
 select { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
 .grid > .estimate-section { grid-column: 1 / -1; margin: 12px 0 0; font-size: 1.1rem; }
+
+/* Калькуляторы и справочник методик. */
+.method-card {
+  margin: 28px 0;
+  padding: clamp(18px, 4vw, 30px);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  background: var(--panel);
+  scroll-margin-top: 80px;
+}
+.method-card h2, .method-guide h1 { margin-top: 0; }
+.method-card p { max-width: 76ch; }
+.method-card .method-context { color: var(--muted); }
+.method-links { padding: 0; list-style: none; margin: 16px 0 0; }
+.method-links li { padding: 12px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.method-links span { display: block; margin-top: 4px; color: var(--muted); }
+.method-link { margin: 0 0 14px; font-size: .95rem; }
+.method-guide { max-width: 880px; }
+.method-guide header { margin: 38px 0 26px; }
+.method-index { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr)); gap: 10px; }
+.method-index a { padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; }

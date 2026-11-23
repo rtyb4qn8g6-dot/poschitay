@@ -27,6 +27,7 @@ jobs:
       - name: Проверить текущий каталог
         run: |
           node automation/audit.cjs
+          node automation/render-methods.cjs --check
           node automation/prepare.cjs --check
           node --test tests/*.test.cjs
       - name: Проверить черновики и очередь
@@ -71,6 +72,7 @@ jobs:
         run: |
           node automation/prepare.cjs
           node automation/audit.cjs
+          node automation/render-methods.cjs --check
           node --test tests/*.test.cjs
           git diff --check
       - name: Выпустить проверенный пакет
