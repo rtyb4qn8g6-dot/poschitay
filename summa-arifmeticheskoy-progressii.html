@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сумма арифметической прогрессии | Посчитай</title>
+  <meta name="description" content="Найдите сумму первых членов арифметической прогрессии с неотрицательным первым членом и шагом.">
+  <link rel="canonical" href="https://poschitay24.ru/summa-arifmeticheskoy-progressii">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🔢</div><div><h1>Сумма арифметической прогрессии</h1><p class="lead">Найдите сумму первых членов арифметической прогрессии с неотрицательным первым членом и шагом.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="first">Первый член прогрессии</label><input id="first" inputmode="decimal" data-lower="0" data-upper="100000" value="3"></div>
+    <div><label for="step">Шаг между членами прогрессии</label><input id="step" inputmode="decimal" data-lower="0" data-upper="100000" value="4"></div>
+    <div><label for="count">Количество членов</label><input id="count" inputmode="decimal" data-lower="1" data-upper="1000" value="5"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Последний член равен первому плюс шаг, умноженный на число переходов. Сложите первый и последний члены, умножьте на количество членов и разделите пополам. Количество членов должно быть целым. Дробное значение в этом поле округляется вниз.</p>
+  <h2>Пример расчёта</h2>
+  <p>Первый член прогрессии — 3 · Шаг между членами прогрессии — 4 · Количество членов — 5. Результат — <strong>55 ед.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="kvadratnye-uravneniya"><span class="ico">📐</span><b>Квадратные уравнения</b></a>
+<a class="tile" href="proporcii"><span class="ico">⚖️</span><b>Пропорции</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"ед.","expression":["first","2","*","count","floor","1","-","step","*","+","count","floor","*","2","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

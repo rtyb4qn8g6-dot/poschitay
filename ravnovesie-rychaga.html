@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Равновесие рычага | Посчитай</title>
+  <meta name="description" content="Найдите силу на втором плече идеального рычага по известной силе и расстояниям до точки опоры.">
+  <link rel="canonical" href="https://poschitay24.ru/ravnovesie-rychaga">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">⚙️</div><div><h1>Равновесие рычага</h1><p class="lead">Найдите силу на втором плече идеального рычага по известной силе и расстояниям до точки опоры.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="force">Сила на первом плече, Н</label><input id="force" inputmode="decimal" data-lower="0" data-upper="100000" value="120"></div>
+    <div><label for="armfirst">Первое плечо, м</label><input id="armfirst" inputmode="decimal" data-lower="0.001" data-upper="1000" value="0.25"></div>
+    <div><label for="armsecond">Второе плечо, м</label><input id="armsecond" inputmode="decimal" data-lower="0.001" data-upper="1000" value="0.75"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Для равновесия моменты сил должны совпадать. Умножьте известную силу на её плечо и разделите на второе плечо. В этой учебной модели силы действуют перпендикулярно рычагу, а его собственный вес и трение в опоре не учитываются.</p>
+  <h2>Пример расчёта</h2>
+  <p>Сила на первом плече, Н — 120 · Первое плечо, м — 0,25 · Второе плечо, м — 0,75. Результат — <strong>40 Н</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="proporcii"><span class="ico">⚖️</span><b>Пропорции</b></a>
+<a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"Н","expression":["force","armfirst","*","armsecond","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

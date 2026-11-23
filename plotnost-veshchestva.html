@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Плотность по массе и объёму | Посчитай</title>
+  <meta name="description" content="Найдите плотность образца в килограммах на кубометр по массе в граммах и объёму в кубических сантиметрах.">
+  <link rel="canonical" href="https://poschitay24.ru/plotnost-veshchestva">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">⚖️</div><div><h1>Плотность по массе и объёму</h1><p class="lead">Найдите плотность образца в килограммах на кубометр по массе в граммах и объёму в кубических сантиметрах.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="mass">Масса образца, г</label><input id="mass" inputmode="decimal" data-lower="0.001" data-upper="1000000" value="270"></div>
+    <div><label for="volume">Объём образца, см³</label><input id="volume" inputmode="decimal" data-lower="0.001" data-upper="10000000" value="100"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Разделите массу в граммах на объём в кубических сантиметрах. Умножьте полученную плотность в г/см³ на 1000, чтобы перейти к кг/м³. Для неоднородного образца результат показывает среднюю плотность по его общему объёму.</p>
+  <h2>Пример расчёта</h2>
+  <p>Масса образца, г — 270 · Объём образца, см³ — 100. Результат — <strong>2 700 кг/м³</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="ploshchad-figur"><span class="ico">🔷</span><b>Площадь фигур</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"кг/м³","expression":["mass","volume","/","1000","*"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

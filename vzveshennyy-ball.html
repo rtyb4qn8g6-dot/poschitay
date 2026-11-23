@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Взвешенный средний балл | Посчитай</title>
+  <meta name="description" content="Рассчитайте средний балл по трём компонентам с разным весом, например за тест, проект и экзамен.">
+  <link rel="canonical" href="https://poschitay24.ru/vzveshennyy-ball">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🎓</div><div><h1>Взвешенный средний балл</h1><p class="lead">Рассчитайте средний балл по трём компонентам с разным весом, например за тест, проект и экзамен.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="scorea">Балл за первый компонент</label><input id="scorea" inputmode="decimal" data-lower="0" data-upper="100" value="80"></div>
+    <div><label for="weighta">Вес первого компонента</label><input id="weighta" inputmode="decimal" data-lower="0.01" data-upper="1000" value="2"></div>
+    <div><label for="scoreb">Балл за второй компонент</label><input id="scoreb" inputmode="decimal" data-lower="0" data-upper="100" value="70"></div>
+    <div><label for="weightb">Вес второго компонента</label><input id="weightb" inputmode="decimal" data-lower="0" data-upper="1000" value="3"></div>
+    <div><label for="scorec">Балл за третий компонент</label><input id="scorec" inputmode="decimal" data-lower="0" data-upper="100" value="90"></div>
+    <div><label for="weightc">Вес третьего компонента</label><input id="weightc" inputmode="decimal" data-lower="0" data-upper="1000" value="5"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Оценки должны быть по одной шкале. Умножьте каждый балл на его вес, сложите произведения и разделите на сумму весов. Веса можно задать долями, процентами или коэффициентами, используя одну систему. Если компонентов меньше трёх, обнулите веса лишних.</p>
+  <h2>Пример расчёта</h2>
+  <p>Балл за первый компонент — 80 · Вес первого компонента — 2 · Балл за второй компонент — 70 · Вес второго компонента — 3 · Балл за третий компонент — 90 · Вес третьего компонента — 5. Результат — <strong>82 балл.</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="procenty"><span class="ico">💯</span><b>Проценты</b></a>
+<a class="tile" href="proporcii"><span class="ico">⚖️</span><b>Пропорции</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"балл.","expression":["scorea","weighta","*","scoreb","weightb","*","+","scorec","weightc","*","+","weighta","weightb","+","weightc","+","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

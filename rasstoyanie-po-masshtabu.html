@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расстояние по масштабу карты | Посчитай</title>
+  <meta name="description" content="Переведите длину отрезка на карте с масштабом 1:N в километры на местности.">
+  <link rel="canonical" href="https://poschitay24.ru/rasstoyanie-po-masshtabu">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">🗺️</div><div><h1>Расстояние по масштабу карты</h1><p class="lead">Переведите длину отрезка на карте с масштабом 1:N в километры на местности.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="length">Длина на карте, см</label><input id="length" inputmode="decimal" data-lower="0" data-upper="1000" value="7.5"></div>
+    <div><label for="scale">Знаменатель масштаба N (для 1:50 000 введите 50 000)</label><input id="scale" inputmode="decimal" data-lower="1" data-upper="100000000" value="50000"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>Умножьте длину отрезка на знаменатель масштаба, чтобы получить сантиметры на местности. В километре 100 000 сантиметров. Если карта распечатана в изменённом размере, определите масштаб по линейке на самой карте. Для измерения маршрута вдоль дороги сложите длины его участков.</p>
+  <h2>Пример расчёта</h2>
+  <p>Длина на карте, см — 7,5 · Знаменатель масштаба N (для 1:50 000 введите 50 000) — 50 000. Результат — <strong>3,75 км</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="skorost-vremya"><span class="ico">🚀</span><b>Скорость, время, расстояние</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"км","expression":["length","scale","*","100000","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

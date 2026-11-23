@@ -1,0 +1,13 @@
+.photo-math { max-width: 850px; padding-bottom: 40px; }
+.photo-math .calc-head { margin-bottom: 24px; }
+.photo-math .math-photo-card { border-color: var(--accent); }
+.photo-math .card + .card { margin-top: 18px; }
+.photo-math input[type="file"] { max-width: 100%; font-size: .95rem; }
+.photo-math input[type="file"]::file-selector-button { padding: .35em .6em; margin-right: .45em; }
+.photo-math #math-input { font-size: 1.15rem; }
+.photo-math #photo-status:empty { display: none; }
+.photo-math .math-examples { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+.photo-math .math-examples button { color: inherit; font: inherit; cursor: pointer; }
+.photo-math #math-result { margin-top: 18px; overflow-wrap: anywhere; }
+.photo-math #math-result ol { padding-left: 1.55em; }
+.photo-math #math-result li + li { margin-top: .45em; }

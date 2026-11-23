@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Градусы в радианы | Посчитай</title>
+  <meta name="description" content="Переведите угол из градусов и дополнительных угловых минут в радианы.">
+  <link rel="canonical" href="https://poschitay24.ru/gradusy-v-radiany">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a class="logo" href="./"><b>П</b>Посчитай</a><a href="./#ucheba">Учёба</a></div></header>
+<main class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> / <a href="./#ucheba">Учёба</a></div>
+  <div class="calc-head"><div class="ic" aria-hidden="true">📐</div><div><h1>Градусы в радианы</h1><p class="lead">Переведите угол из градусов и дополнительных угловых минут в радианы.</p></div></div>
+  <form class="card" id="f"><div class="grid">
+    <div><label for="degrees">Градусы</label><input id="degrees" inputmode="decimal" data-lower="0" data-upper="100000" value="30"></div>
+    <div><label for="minutes">Дополнительные угловые минуты</label><input id="minutes" inputmode="decimal" data-lower="0" data-upper="59" value="0"></div>
+  </div><div class="result" id="out" aria-live="polite"></div></form>
+  <h2>Как считается</h2>
+  <p>В одном градусе 60 угловых минут. Переведите минуты в долю градуса, сложите с целыми градусами и умножьте на π/180. Например, 30 градусов равны π/6 радиана. Можно ввести десятичный угол в градусах и оставить минуты равными нулю.</p>
+  <h2>Пример расчёта</h2>
+  <p>Градусы — 30 · Дополнительные угловые минуты — 0. Результат — <strong>0,5236 рад</strong>.</p>
+  <h2>Связанные калькуляторы</h2>
+  <div class="tiles"><a class="tile" href="perevod-edinic"><span class="ico">🔁</span><b>Перевод единиц</b></a>
+<a class="tile" href="ploshchad-figur"><span class="ico">🔷</span><b>Площадь фигур</b></a></div>
+</main>
+<script type="application/json" id="calculator-spec">{"unit":"рад","expression":["degrees","minutes","60","/","+","3.141592653589793","*","180","/"]}</script>
+<script src="assets/app.js"></script>
+<script src="assets/purchase-calcs.js"></script>
+<script src="assets/generated-calculator.js"></script>
+</body>
+</html>

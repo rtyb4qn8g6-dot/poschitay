@@ -4,6 +4,7 @@ const evaluate = require("../assets/generated-calculator.js");
 const assert = require("node:assert/strict");
 
 const sections = {
+  ucheba: { name: "Учёба", first: '  <a class="tile" href="drobi"' },
   den: { name: "Дом и каждый день", first: '  <a class="tile" href="perevod-edinic"' },
   remont: { name: "Ремонт и стройка", first: '  <a class="tile wow" href="remont-vannoy"' },
   kuhnya: { name: "Кухня", first: '  <a class="tile" href="recept-porcii"' },
@@ -11,7 +12,7 @@ const sections = {
 };
 const queues = [
   ["calculators.json", "remont"], ["batch-remont.json", "remont"],
-  ["batch-kuhnya.json", "kuhnya"], ["batch-poezdki.json", "avto"], ["batch-cifry.json", "den"]
+  ["batch-kuhnya.json", "kuhnya"], ["batch-poezdki.json", "avto"], ["batch-cifry.json", "den"], ["batch-ucheba.json", "ucheba"]
 ];
 const queue = queues.flatMap(([file, section]) => {
   const path = "automation/" + file;
