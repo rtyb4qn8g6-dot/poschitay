@@ -20,7 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/photo-math.css?v=4">
+<link rel="stylesheet" href="assets/photo-math.css?v=5">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 <link rel="icon" type="image/png" sizes="120x120" href="assets/favicon-120.png">
@@ -56,6 +56,7 @@
   <div class="math-photo-actions">
     <button class="btn" type="button" data-photo-picker="photo-upload" aria-describedby="photo-hint">Выбрать фото</button>
     <button class="btn ghost" type="button" data-photo-picker="photo-camera">Сделать фото</button>
+    <a class="btn ghost" href="#sistema-s-kornyami">Система с корнями</a>
     <input id="photo-upload" type="file" accept="image/*,.heic,.heif" hidden>
     <input id="photo-camera" type="file" accept="image/*" capture="environment" hidden>
   </div>
@@ -81,7 +82,7 @@
   <button type="submit" class="btn">Решить по шагам</button>
   <div class="result" id="math-result" aria-live="polite" hidden></div>
 </form>
-<section class="card math-worked-example" aria-labelledby="math-advanced-title">
+<section id="sistema-s-kornyami" class="card math-worked-example" aria-labelledby="math-advanced-title">
   <h2 id="math-advanced-title">Разбор нелинейной системы с корнями</h2>
   <p>Рассмотрим систему, где величины <var>u</var> и <var>v</var> заданы, а <var>x</var> и <var>y</var> нужно найти.</p>
   <p class="math-formula"><code>(Ax − By)/D = 3u<br>(Ay − Bx)/D = 3v</code></p>
